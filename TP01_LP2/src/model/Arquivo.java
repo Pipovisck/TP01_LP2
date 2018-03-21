@@ -1,3 +1,5 @@
+package model;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,20 +29,20 @@ public class Arquivo {
     public void imprimeConteudo(){
         String linha;
         
-        try{
-            FileReader arq = new FileReader(this.diretorio); //Abre o arquivo
+        try(FileReader arq = new FileReader(this.diretorio) //Abre o arquivo
+        ) {
             BufferedReader lerArq = new BufferedReader(arq); //Lê o arquivo
             
             do{
                 linha = lerArq.readLine(); //Lê linha por linha do arquivo
                 
-                if(linha == null)
+                if (linha == null) {
                     return;
+                }
                 
                 System.out.println(linha);
             }while(linha != null);
             
-            arq.close();
             
         }catch (IOException e){
             System.err.println("Erro na abertura do arquivo.\n" + e.getMessage());
