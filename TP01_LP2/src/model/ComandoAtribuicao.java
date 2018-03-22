@@ -19,7 +19,7 @@ public class ComandoAtribuicao {
 
     public String[] quebraLinha(String linha) {
         String[] partesLinha;
-        partesLinha = linha.split(":");
+        partesLinha = linha.split(":=");
         String[] vetorPartes = {partesLinha[0], partesLinha[1]};
         return vetorPartes;
     }
