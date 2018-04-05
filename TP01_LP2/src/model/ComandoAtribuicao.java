@@ -9,13 +9,7 @@ package model;
  *
  * @author Matheus
  */
-public class ComandoAtribuicao {
-
-    private final Memoria memoriaVariaveis;
-
-    public ComandoAtribuicao() {
-        memoriaVariaveis = new Memoria();
-    }
+public class ComandoAtribuicao implements Comando {
 
     public String[] quebraLinha(String linha) {
         String[] partesLinha;
@@ -36,7 +30,7 @@ public class ComandoAtribuicao {
         return tipoDado;
     }
 
-    public void armazenaVariavel(String linha) {
+    public void armazenaVariavel(String linha, Memoria memoriaVariaveis) {
         String[] partesLinha = this.quebraLinha(linha);
         TipoDado tipo = this.descobreTipo(partesLinha[1]);
         if (tipo == TipoDado.Integer) {
@@ -45,8 +39,14 @@ public class ComandoAtribuicao {
             memoriaVariaveis.add(partesLinha[0], partesLinha[1]);
         }
     }
-    
-    public Memoria getMemoriaVariaveis(){
-        return memoriaVariaveis;
+
+    @Override
+    public void executar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean varificacarSintaxe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
