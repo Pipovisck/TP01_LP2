@@ -7,12 +7,22 @@ package model;
 
 /**
  *
- * @author Aluno
+ * @author mathe
+ * @param <E>
  */
-public interface Comando {
+public abstract class Comando<E> {
 
-    public void executar();
+    protected Memoria memoria;
 
-    public boolean varificacarSintaxe();
+    public Comando() {
+        memoria = new Memoria();
+    }
 
+    public E getVariavelMemoria(String nome) {
+        return (E) memoria.getVariavel(nome);
+    }
+
+    public abstract void executar();
+
+    public abstract void verificarSintaxe();
 }
