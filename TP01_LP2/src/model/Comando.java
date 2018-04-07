@@ -24,5 +24,5 @@ public abstract class Comando<E> {
 
     public abstract void executar();
 
-    public abstract void verificarSintaxe();
+    public abstract boolean verificarSintaxe();
 }

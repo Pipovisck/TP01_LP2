@@ -11,21 +11,16 @@ package model;
  */
 public class ComandoAtribuicao extends Comando {
 
-    private String linha;
+    private String nomeVariavel;
+    private String conteudoVariavel;
 
     public enum TipoDado {
         Integer, String, Float
     }
 
-    public ComandoAtribuicao(String linha) {
-        this.linha = linha;
-    }
-
-    public String[] quebraLinha(String linha) {
-        String[] partesLinha;
-        partesLinha = linha.split(":=");
-        String[] vetorPartes = {partesLinha[0], partesLinha[1]};
-        return vetorPartes;
+    public ComandoAtribuicao(String nomeVariavel, String conteudoVariavel) {
+        this.nomeVariavel = nomeVariavel;
+        this.conteudoVariavel = conteudoVariavel;
     }
 
     public TipoDado descobreTipo(String valor) {
@@ -42,39 +37,66 @@ public class ComandoAtribuicao extends Comando {
                 tipoDado = TipoDado.Float;
             }
         }
-
         return tipoDado;
     }
 
     @Override
     public void executar() {
-        String[] partesLinha = this.quebraLinha(getLinha());
-        TipoDado tipo = this.descobreTipo(partesLinha[1]);
-
-        switch (tipo) {
+        TipoDado tipoVariavel = this.descobreTipo(this.conteudoVariavel);
+        switch (tipoVariavel) {
             case Integer:
-                this.memoria.add(partesLinha[0], Integer.parseInt(partesLinha[1]));
+                this.memoria.add(this.nomeVariavel, Integer.parseInt(this.conteudoVariavel));
                 break;
             case Float:
-                this.memoria.add(partesLinha[0], Float.parseFloat(partesLinha[1]));
+                this.memoria.add(this.nomeVariavel, Float.parseFloat(this.conteudoVariavel));
                 break;
             default:
-                this.memoria.add(partesLinha[0], partesLinha[1]);
-                break;
+                this.conteudoVariavel = this.conteudoVariavel.replace("\"", "");
+                this.memoria.add(this.nomeVariavel, this.conteudoVariavel);
         }
     }
 
     @Override
-    public void verificarSintaxe() {
-
+    public boolean verificarSintaxe() {
+        String[] partesNomeVariavel;
+        partesNomeVariavel = this.nomeVariavel.split("");
+        return true;
     }
 
-    public String getLinha() {
-        return linha;
+    public boolean verificaNome() {
+        String[] partesNome;
+        partesNome = this.nomeVariavel.split("");
+        boolean primeiraLetraCerta = false;
+        for (String letra : Constantes.LETRAS) {
+            if (letra.equalsIgnoreCase(partesNome[0])) {
+                primeiraLetraCerta = true;
+                break;
+            }
+        }
+        if (!primeiraLetraCerta) {
+            return false;
+        }
+        
+        for (int i = 1; i < partesNome.length; i++) {
+            boolean caracterCorreto = false;
+            for (String letra : Constantes.LETRAS) {
+                if (letra.equalsIgnoreCase(partesNome[i])) {
+                    caracterCorreto = true;
+                    break;
+                }
+            }
+            if (!caracterCorreto) {
+                for (int digito : Constantes.DIGITOS) {
+                    if (digito == Integer.parseInt(partesNome[i])) {
+                        caracterCorreto = true;
+                        break;
+                    }
+                }
+            }
+            if (!caracterCorreto) {
+                return false;
+            }
+        }
+        return true;
     }
-
-    public void setLinha(String linha) {
-        this.linha = linha;
-    }
-
 }
