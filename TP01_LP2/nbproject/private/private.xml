@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mathe/Desktop/TP01_LP2/TP01_LP2/src/model/Comando.java</file>
-            <file>file:/C:/Users/mathe/Desktop/TP01_LP2/TP01_LP2/src/model/ComandoAtribuicao.java</file>
-            <file>file:/C:/Users/mathe/Desktop/TP01_LP2/TP01_LP2/src/Aplicacao.java</file>
-            <file>file:/C:/Users/mathe/Desktop/TP01_LP2/TP01_LP2/src/model/Memoria.java</file>
+            <file>file:/C:/Users/augus/Desktop/TP01_LP2/TP01_LP2/src/model/Comando.java</file>
+            <file>file:/C:/Users/augus/Desktop/TP01_LP2/TP01_LP2/src/model/LeituraArquivo.java</file>
+            <file>file:/C:/Users/augus/Desktop/TP01_LP2/TP01_LP2/src/model/ComandoAtribuicao.java</file>
+            <file>file:/C:/Users/augus/Desktop/TP01_LP2/TP01_LP2/src/model/AnalisaComandos.java</file>
+            <file>file:/C:/Users/augus/Desktop/TP01_LP2/TP01_LP2/src/model/Memoria.java</file>
         </group>
     </open-files>
 </project-private>
