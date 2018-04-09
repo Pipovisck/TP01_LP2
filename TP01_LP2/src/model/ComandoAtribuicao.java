@@ -19,6 +19,7 @@ public class ComandoAtribuicao extends Comando {
     }
 
     public ComandoAtribuicao(String nomeVariavel, String conteudoVariavel) {
+        super();
         this.nomeVariavel = nomeVariavel;
         this.conteudoVariavel = conteudoVariavel;
     }
@@ -58,12 +59,10 @@ public class ComandoAtribuicao extends Comando {
 
     @Override
     public boolean verificarSintaxe() {
-        String[] partesNomeVariavel;
-        partesNomeVariavel = this.nomeVariavel.split("");
-        return true;
+        return this.verificaSintaxeVariavel() && this.verificaSintaxeExpressao();
     }
 
-    public boolean verificaNome() {
+    public boolean verificaSintaxeVariavel() {
         String[] partesNome;
         partesNome = this.nomeVariavel.split("");
         boolean primeiraLetraCerta = false;
@@ -76,7 +75,7 @@ public class ComandoAtribuicao extends Comando {
         if (!primeiraLetraCerta) {
             return false;
         }
-        
+
         for (int i = 1; i < partesNome.length; i++) {
             boolean caracterCorreto = false;
             for (String letra : Constantes.LETRAS) {
@@ -86,8 +85,8 @@ public class ComandoAtribuicao extends Comando {
                 }
             }
             if (!caracterCorreto) {
-                for (int digito : Constantes.DIGITOS) {
-                    if (digito == Integer.parseInt(partesNome[i])) {
+                for (Integer digito : Constantes.DIGITOS) {
+                    if (partesNome[i].equalsIgnoreCase(digito.toString())) {
                         caracterCorreto = true;
                         break;
                     }
@@ -97,6 +96,11 @@ public class ComandoAtribuicao extends Comando {
                 return false;
             }
         }
+        return true;
+    }
+
+    public boolean verificaSintaxeExpressao() {
+
         return true;
     }
 }
