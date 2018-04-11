@@ -1,4 +1,6 @@
-package model;
+package Comandos;
+
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

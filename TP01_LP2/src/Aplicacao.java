@@ -1,5 +1,5 @@
 
-import model.Compilador;
+import Compilador.Compilador;
 
 
 /**

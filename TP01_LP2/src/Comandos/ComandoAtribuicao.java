@@ -1,4 +1,5 @@
-package model;
+package Comandos;
+import Constantes.Constantes;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
