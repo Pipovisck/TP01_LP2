@@ -23,33 +23,19 @@ public class AnalisaComandos {
     public Comando comparaPalavras(String palavra){
         switch (palavra) {
         case "print":
-            System.out.println ("print"); break;
-            // chama comando print
-            // return true
+            return new ComandoPrint();
         case "println":
-            System.out.println ("println"); break;
-            // ""
-            // return true
+            return new ComandoPrintln();
         case ":=":
-            System.out.println (":="); break;
-            // ""
-            // return true
+            return new ComandoAtribuicao();
         case "readInt":
-            System.out.println ("readInt"); break;
-            // ""
-            // return true
+            return new ComandoReadInt();
         case "for":
-            System.out.println ("for"); break;
-            // aciona lanço for 
-            // return true
+            return new ComandoFor();
         case "while":
-            System.out.println ("while"); break;
-            // ""
-            // return true
+            return new ComandoWhile();
         case "if":
-            System.out.println ("if"); break;
-            // ""
-            // return true
+            return new ComandoIf();
         }
         return null;
     }
