@@ -21,7 +21,7 @@ public class Compilador {
     public Compilador() {
         this.analisadorComandos = new AnalisaComandos();
         this.leitorArquivo = new LeituraArquivo();
-        leitorArquivo.setDiretorio("C:\\Users\\mathe\\Desktop\\TP01_LP2\\TP01_LP2\\cefetny.txt");
+        leitorArquivo.setDiretorio("C:\\Users\\mathe\\Desktop\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
     }
 

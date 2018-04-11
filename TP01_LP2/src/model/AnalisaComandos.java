@@ -20,7 +20,7 @@ public class AnalisaComandos {
         // seta todas as palavras reservadas da linguagem cefetiny
     }
     
-    public boolean comparaPalavras(String palavra){
+    public Comando comparaPalavras(String palavra){
         switch (palavra) {
         case "print":
             System.out.println ("print"); break;
@@ -51,7 +51,7 @@ public class AnalisaComandos {
             // ""
             // return true
         }
-        return false;
+        return null;
     }
     
     
