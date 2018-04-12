@@ -12,7 +12,7 @@ import Constantes.Constantes;
  */
 public class ComandoAtribuicao extends Comando {
 
-    private String nomeVariavel;
+    private final String nomeVariavel;
     private String conteudoVariavel;
 
     public enum TipoDado {
