@@ -1,16 +1,14 @@
 
-
 import calculadora.Excecoes.ExcecaoEntradaDados;
 import java.util.Stack;
-
 
 public class ReconhecimentoExpressoes {
 
     private final String[] precedencia = {"^", "*", "/"};
     private final Calculo calculadora;
 
-    private Stack operandos;
-    private Stack operadores;
+    private final Stack<String> operandos;
+    private final Stack<String> operadores;
 
     public enum UltimoCaracter {
         numero, operador
@@ -69,9 +67,9 @@ public class ReconhecimentoExpressoes {
                     break;
                 case "+":
                 case "-":
-                    while (!operadores.testeVazia() && operadores.ultimaPosicao() != null && (operadores.ultimaPosicao().equals(precedencia[0])
-                            || operadores.ultimaPosicao().equals(precedencia[1])
-                            || operadores.ultimaPosicao().equals(precedencia[2]))) {
+                    while (!operadores.empty() && operadores.lastElement() != null && (operadores.lastElement().equals(precedencia[0])
+                            || operadores.lastElement().equals(precedencia[1])
+                            || operadores.lastElement().equals(precedencia[2]))) {
                         float valor2 = Float.parseFloat(operandos.pop());
                         float valor1 = Float.parseFloat(operandos.pop());
                         float resultado = calculadora.calcularBinario(operadores.pop(), valor1, valor2);
@@ -104,12 +102,12 @@ public class ReconhecimentoExpressoes {
             String operador = operadores.pop();
             float resultado = calculadora.calcularBinario(operador, Float.parseFloat(primeiroNumero), Float.parseFloat(segundoNumero));
             operandos.add(Float.toString(resultado));
-        } while (!operadores.ultimaPosicao().equals("("));
+        } while (!operadores.lastElement().equals("("));
         operadores.pop();
     }
 
     public void desempilha() {
-        while (!operadores.testeVazia()) {
+        while (!operadores.empty()) {
             String segundoNumero = operandos.pop();
             String primeiroNumero = operandos.pop();
             String operador = operadores.pop();

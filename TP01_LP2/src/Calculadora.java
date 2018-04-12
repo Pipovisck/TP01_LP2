@@ -1,4 +1,4 @@
-package calculadora;
+
 import calculadora.Excecoes.ExcecaoEntradaDados;
 import java.util.Scanner;
 
