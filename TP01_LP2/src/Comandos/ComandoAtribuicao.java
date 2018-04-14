@@ -1,5 +1,6 @@
 package Comandos;
 import Constantes.Constantes;
+import Memoria.Memoria;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,6 +15,7 @@ public class ComandoAtribuicao extends Comando {
 
     private final String nomeVariavel;
     private String conteudoVariavel;
+    
 
     public enum TipoDado {
         Integer, String, Float
@@ -43,7 +45,8 @@ public class ComandoAtribuicao extends Comando {
     }
 
     @Override
-    public void executar() {
+    public Memoria executar(Memoria memoria) {
+        this.memoria = memoria;
         TipoDado tipoVariavel = this.descobreTipo(this.conteudoVariavel);
         switch (tipoVariavel) {
             case Integer:
@@ -56,6 +59,7 @@ public class ComandoAtribuicao extends Comando {
                 this.conteudoVariavel = this.conteudoVariavel.replace("\"", "");
                 this.memoria.add(this.nomeVariavel, this.conteudoVariavel);
         }
+        return this.memoria;
     }
 
     @Override

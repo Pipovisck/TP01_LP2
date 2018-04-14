@@ -5,11 +5,10 @@ package Compilador;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import Comandos.AnalisaComandos;
 import Arquivo.LeituraArquivo;
 import Comandos.Comando;
+import Memoria.Memoria;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +21,17 @@ public class Compilador {
     private AnalisaComandos analisadorComandos;
     private LeituraArquivo leitorArquivo;
     private ArrayList<Comando> comandos;
+    private Memoria memoria;
 
     public Compilador() {
         this.analisadorComandos = new AnalisaComandos();
         this.leitorArquivo = new LeituraArquivo();
-        leitorArquivo.setDiretorio("C:\\Users\\mathe\\Desktop\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
+        this.leitorArquivo.setDiretorio("C:\\Users\\mathe\\Desktop\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
+        this.memoria = new Memoria();
     }
 
-    public void nomeX() {
+    public void rodarPrograma() {
         List<String> palavras = leitorArquivo.retornaLista();
         palavras.forEach((palavra) -> {
             comandos.add(analisadorComandos.comparaPalavras(palavra));
@@ -41,7 +42,7 @@ public class Compilador {
             }
         });
         comandos.forEach((comando) -> {
-            comando.executar();
+            memoria = comando.executar(memoria);
         });
     }
 }

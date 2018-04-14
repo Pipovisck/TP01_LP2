@@ -5,20 +5,22 @@
  */
 package Comandos;
 
+import Memoria.Memoria;
+
 /**
  *
  * @author Aluno
  */
-public class ComandoIf extends Comando{
+public class ComandoIf extends Comando {
 
     @Override
-    public void executar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Memoria executar(Memoria memoria) {
+        return this.memoria;
     }
 
     @Override
     public boolean verificarSintaxe() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
-    
+
 }

@@ -10,7 +10,7 @@ public class Aplicacao {
 
     public static void main(String[] args) {
         Compilador compilador = new Compilador();
-        compilador.nomeX();
+        compilador.rodarPrograma();
     }
 
 }
