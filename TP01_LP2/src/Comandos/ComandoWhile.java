@@ -16,7 +16,7 @@ public class ComandoWhile extends Comando {
     public ComandoWhile(String[] vetorLinhas, List<Comando> listaComandos) {
         this.vetorLinhas = vetorLinhas;
         this.listaComandos = listaComandos;
-        this.expressao = retornaExpressao();
+        this.expressao = this.retornaExpressao();
     }
 
     @Override
@@ -46,7 +46,9 @@ public class ComandoWhile extends Comando {
             if (vetor[i] == '(') {
                 inicio = i + 1;
             }
-
+        }
+        
+        for (int i = vetor.length; i >= 0; i--) {
             if (vetor[i] == ')') {
                 fim = i;
             }
