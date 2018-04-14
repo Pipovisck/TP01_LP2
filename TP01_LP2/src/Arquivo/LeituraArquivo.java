@@ -48,6 +48,12 @@ public class LeituraArquivo {
                 System.err.println("Erro na abertura do arquivo.\n" + e.getMessage());
         }
         
+        System.out.println(listaPalavras.size());
+        
+        while(!listaPalavras.isEmpty()){
+            System.out.println(listaPalavras.remove(0).toString());
+        }
+        
         return listaPalavras;
     }
 
