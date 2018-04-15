@@ -45,12 +45,14 @@ public class ComandoWhile extends Comando {
         for (int i = 0; i < vetor.length; i++) {
             if (vetor[i] == '(') {
                 inicio = i + 1;
+                break;
             }
         }
         
         for (int i = vetor.length; i >= 0; i--) {
             if (vetor[i] == ')') {
                 fim = i;
+                break;
             }
         }
 
