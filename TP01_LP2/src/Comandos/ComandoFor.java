@@ -1,5 +1,6 @@
 package Comandos;
 
+import Analisador.ReconhecimentoExpressoes;
 import Memoria.Memoria;
 import java.util.List;
 
@@ -20,8 +21,11 @@ public class ComandoFor extends Comando{
     @Override
     public Memoria executar(Memoria memoria) {
         this.memoria = memoria;
-        String atribuicao = new String();
-        String[] partesAtribuicao = new String[2];
+        ReconhecimentoExpressoes exp = new ReconhecimentoExpressoes();
+        String atribuicao;
+        String[] partesAtribuicao;
+        String nomeVar;
+        int valorVar;
         char[] linha1 = vetorLinhas[0].toCharArray();
         String linhaSemEspaco = tiraEspaco(linha1);
         
@@ -31,10 +35,13 @@ public class ComandoFor extends Comando{
         atribuicao = pegaComandoAtribuicao(linha1);
         partesAtribuicao = atribuicao.split(":=");
         
+        nomeVar = partesAtribuicao[0];
+        valorVar = Integer.parseInt(exp.calcularExpressao(partesAtribuicao[1]));
+        
         if(memoria.getVariavel(partesAtribuicao[0]) == null){
-            memoria.add(partesAtribuicao[0], Integer.parseInt(partesAtribuicao[1]));
+            memoria.add(nomeVar, valorVar);
         }else{
-            memoria.setVariavel(partesAtribuicao[0], Integer.parseInt(partesAtribuicao[1]));
+            memoria.setVariavel(nomeVar, valorVar);
         }
 
 
@@ -44,7 +51,7 @@ public class ComandoFor extends Comando{
     @Override
     public boolean verificarSintaxe() {
         String comando = new String();
-        String atribuicao = new String();
+        String atribuicao;
         String[] partesAtribuicao = new String[2];
         char[] linha1 = vetorLinhas[0].toCharArray();
         String linhaSemEspaco = tiraEspaco(linha1);
@@ -87,6 +94,8 @@ public class ComandoFor extends Comando{
         String operador = new String();
         
         for (int i = 3; i < linha.length; i++) {
+            atribuicao += linha[i];
+            
             if (linha[i] == 'd') {
                 for (int j = i; j < i + 6; j++) {
                     operador += linha[j];
@@ -94,6 +103,8 @@ public class ComandoFor extends Comando{
                 
                 if (operador.equals("downto")) {
                     return atribuicao;
+                }else{
+                    operador = "";
                 }
             }
             
@@ -104,12 +115,11 @@ public class ComandoFor extends Comando{
                 
                 if (operador.equals("to")) {
                     return atribuicao;
+                }else{
+                    operador = "";
                 }
             }
-            
-            atribuicao += linha[i];
         }
-        
         return null;
     }
     
