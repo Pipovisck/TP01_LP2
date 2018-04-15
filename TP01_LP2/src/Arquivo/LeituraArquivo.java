@@ -45,8 +45,11 @@ public class LeituraArquivo {
         
         //Teste
         System.out.println(listaPalavras.size());
-        while(!listaPalavras.isEmpty())
-            System.out.println(listaPalavras.remove(0).toString());
+        for(int i = 0; i < listaPalavras.size(); i ++)
+            System.out.println(listaPalavras.get(i).toString() + " ");
+        AnalisaPrograma x = new AnalisaPrograma(listaPalavras);
+        x.excluiEspacos();
+        //x.retornaListaLinhas();
         //Fim teste
         
         return listaPalavras;

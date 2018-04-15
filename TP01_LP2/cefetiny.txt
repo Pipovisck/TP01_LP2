@@ -1,4 +1,8 @@
 var1 := "Teste1"
-var2 :="Teste2"
-print(var1)
+var2 := "Teste2"
+
+
+print (var1)
+
+
 print (var2)
