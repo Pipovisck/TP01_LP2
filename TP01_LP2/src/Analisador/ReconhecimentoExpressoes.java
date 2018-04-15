@@ -1,5 +1,7 @@
+package Analisador;
 
-import calculadora.Excecoes.ExcecaoEntradaDados;
+
+import Excecoes.ExcecaoEntradaDados;
 import java.util.Stack;
 
 public class ReconhecimentoExpressoes {

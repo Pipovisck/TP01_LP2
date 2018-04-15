@@ -1,6 +1,6 @@
 package Arquivo;
 
-
+import Excecoes.ExcecaoArquivoVazio;
 import java.io.*;
 import java.util.*;
 
@@ -21,60 +21,34 @@ public class LeituraArquivo {
     public void setDiretorio(String diretorio) {
         this.diretorio = diretorio;
     }
-    public List retornaLista() {
+    public List retornaLista()throws ExcecaoArquivoVazio {
         String linha;
         String[] palavras;
-        
-        //Esse try com parenteses foi adicionado no Java 7. Eh o java-with-resources e ja fecha os arquivos
-        //automaticamente. No caso, ele fechara o arq (FileReader) e o lerArq (BufferedReader) sem nos preocuparmos com isso.
-        
-        try (FileReader arq = new FileReader(this.diretorio); //Abre o arquivo
-            BufferedReader lerArq = new BufferedReader(arq)){ //Lê o arquivo
 
-            linha = lerArq.readLine(); //Lê uma linha do arquivo
-            if(linha != null){
-                palavras = linha.split(" ");
-                listaPalavras.add(palavras);
-            }else{
-                System.err.println("O arquivo está vazio!");
+        //Esse try com parenteses foi adicionado no Java 7. Eh o java-with-resources e ja fecha os arquivos automaticamente.
+        
+        try (FileReader arq = new FileReader(this.diretorio);
+            BufferedReader lerArq = new BufferedReader(arq)){
+
+            linha = lerArq.readLine();
+            if(linha == null){
+                throw new ExcecaoArquivoVazio();
             }
-            linha = lerArq.readLine(); //Lê linha por linha do arquivo
             while (linha != null) {
                 palavras = linha.split(" ");
-                listaPalavras.add(palavras); 
-                linha = lerArq.readLine(); //Lê linha por linha do arquivo
+                listaPalavras.addAll(Arrays.asList(palavras)); 
+                linha = lerArq.readLine();
             }
         } catch (IOException e) {
                 System.err.println("Erro na abertura do arquivo.\n" + e.getMessage());
         }
         
+        //Teste
         System.out.println(listaPalavras.size());
-        
-        while(!listaPalavras.isEmpty()){
+        while(!listaPalavras.isEmpty())
             System.out.println(listaPalavras.remove(0).toString());
-        }
+        //Fim teste
         
         return listaPalavras;
-    }
-
-    public void imprimeConteudo() {
-        String linha;
-        
-        //Esse try com parenteses foi adicionado no Java 7. Eh o java-with-resources e ja fecha os arquivos
-        //automaticamente. No caso, ele fechara o arq (FileReader) e o lerArq (BufferedReader) sem nos preocuparmos com isso.
-            
-        try (FileReader arq = new FileReader(this.diretorio); //Abre o arquivo
-                 BufferedReader lerArq = new BufferedReader(arq)){ //Lê o arquivo
-                
-                linha = lerArq.readLine(); //Lê uma linha do arquivo
-                System.out.println(linha);
-                
-                while (linha != null) {
-                    linha = lerArq.readLine(); //Lê linha por linha do arquivo
-                    System.out.println(linha);
-                }
-            } catch (IOException e) {
-            System.err.println("Erro na abertura do arquivo.\n" + e.getMessage());
-        }
     }
 }

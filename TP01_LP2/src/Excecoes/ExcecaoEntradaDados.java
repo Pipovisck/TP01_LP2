@@ -1,4 +1,4 @@
-package calculadora.Excecoes;
+package Excecoes;
 
 public class ExcecaoEntradaDados extends Exception {
 

@@ -8,6 +8,7 @@ package Compilador;
 import Comandos.AnalisaComandos;
 import Arquivo.LeituraArquivo;
 import Comandos.Comando;
+import Excecoes.ExcecaoArquivoVazio;
 import Memoria.Memoria;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +27,12 @@ public class Compilador {
     public Compilador() {
         this.analisadorComandos = new AnalisaComandos();
         this.leitorArquivo = new LeituraArquivo();
-        this.leitorArquivo.setDiretorio("C:\\Users\\mathe\\Desktop\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
+        this.leitorArquivo.setDiretorio("C:\\Users\\melog\\OneDrive\\Área de Trabalho\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
         this.memoria = new Memoria();
     }
 
-    public void rodarPrograma() {
+    public void rodarPrograma() throws ExcecaoArquivoVazio {
         List<String> palavras = leitorArquivo.retornaLista();
         palavras.forEach((palavra) -> {
             comandos.add(analisadorComandos.comparaPalavras(palavra));
