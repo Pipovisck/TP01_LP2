@@ -1,6 +1,5 @@
 package Analisador;
 
-
 import Excecoes.ExcecaoEntradaDados;
 import java.util.Stack;
 
@@ -12,7 +11,7 @@ public class ReconhecimentoExpressoes {
     private final Stack<String> operandos;
     private final Stack<String> operadores;
 
-    public enum UltimoCaracter {
+    private enum UltimoCaracter {
         numero, operador
     };
 
