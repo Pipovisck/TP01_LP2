@@ -27,21 +27,21 @@ public class AnalisaComandos {
         String[] auxComando = comando.split("");
         
         if (auxComando[0] == PALAVRAS_CONHECIDAS[12]){
-            // return new ComandoPrint(comando, memoria [?] ); 
+            return new ComandoPrint(comando); 
         } else if (auxComando[0] == PALAVRAS_CONHECIDAS[13]){
             // return new ComandoPrintln(); (?)
         } else if (auxComando[0] == PALAVRAS_CONHECIDAS[14]){
             // return new ComandoReadInt(); (?)
         } else if (auxComando[0] == PALAVRAS_CONHECIDAS[1]){
-            return new ComandoIf();
+            // return new ComandoIf();
         } else if (auxComando[0] == PALAVRAS_CONHECIDAS[5]){
             // return new ComandoWhile(Falta definir a assinatura dos parametros); 
         } else if (auxComando[0] == PALAVRAS_CONHECIDAS[8]){
             // return new ComandoFor();
         } else if (auxComando [1] == ":="){
-            // return new ComandoAtribuicao();
+            // return new ComandoAtribuicao(comando);
         } else if (auxComando[auxComando.length - 1] == PALAVRAS_CONHECIDAS[15]){
-            // return (?)
+            // return new ComandoEnd();(?)
         }    
 
         return null;
