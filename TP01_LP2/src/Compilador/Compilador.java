@@ -5,6 +5,7 @@ package Compilador;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Arquivo.AnalisaPrograma;
 import Comandos.AnalisaComandos;
 import Arquivo.LeituraArquivo;
 import Comandos.Comando;
@@ -19,13 +20,13 @@ import java.util.List;
  */
 public class Compilador {
 
-    private AnalisaComandos analisadorComandos;
+    private AnalisaPrograma analisadorPrograma;
     private LeituraArquivo leitorArquivo;
     private ArrayList<Comando> comandos;
     private Memoria memoria;
 
     public Compilador() {
-        this.analisadorComandos = new AnalisaComandos();
+        this.analisadorPrograma = new AnalisaPrograma();
         this.leitorArquivo = new LeituraArquivo();
         this.leitorArquivo.setDiretorio("C:\\Users\\melog\\OneDrive\\Área de Trabalho\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
@@ -34,16 +35,20 @@ public class Compilador {
 
     public void rodarPrograma() throws ExcecaoArquivoVazio {
         List<String> palavras = leitorArquivo.retornaLista();
-        palavras.forEach((palavra) -> {
-            comandos.add(analisadorComandos.comparaPalavras(palavra));
-        });
-        comandos.forEach((comando) -> {
-            if (!comando.verificarSintaxe()) {
-                System.out.println("Sintaxe errada" + comando.toString());
-            }
-        });
-        comandos.forEach((comando) -> {
-            memoria = comando.executar(memoria);
-        });
+        
+        analisadorPrograma = new AnalisaPrograma (palavras);
+        
+//        palavras.forEach((palavra) -> {
+//            comandos.add(analisadorComandos.comparaPalavras(palavra));
+//        });
+//        
+//        comandos.forEach((comando) -> {
+//            if (!comando.verificarSintaxe()) {
+//                System.out.println("Sintaxe errada" + comando.toString());
+//            }
+//        });
+//        comandos.forEach((comando) -> {
+//            memoria = comando.executar(memoria);
+//        });
     }
 }
