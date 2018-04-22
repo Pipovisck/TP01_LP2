@@ -5,10 +5,10 @@
  */
 package Analisador;
 
+import Memoria.Memoria;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  *
@@ -17,11 +17,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class ReconhecimentoExpressaoLogica<E> {
 
-    private final String[] precedencia = {"||", "&&"};
-
     private final Stack<String> operandos;
-    private final Stack<String> operadores;
-    private final ConcurrentLinkedQueue<Boolean> resultados;
+    private final List<String> operadores;
+    private final List<Boolean> resultados;
     private final CalculosLogicos calculos;
 
     private enum UltimoCaracter {
@@ -32,22 +30,31 @@ public class ReconhecimentoExpressaoLogica<E> {
 
     public ReconhecimentoExpressaoLogica() {
         operandos = new Stack<>();
-        operadores = new Stack<>();
-        resultados = new ConcurrentLinkedQueue();
+        operadores = new LinkedList<>();
+        resultados = new LinkedList();
         calculos = new CalculosLogicos();
         ultimoCaracter = UltimoCaracter.operando;
     }
 
-    public boolean calcularExpressao(String expressao) {
+    public boolean calcularExpressao(String expressao, Memoria memoria) {
         String[] caracteresExpressao = expressao.split("");
         for (String caracter : caracteresExpressao) {
             switch (caracter) {
+                case "(":
+                    operadores.add(caracter);
+                    ultimoCaracter = UltimoCaracter.operador;
+                    break;
+                case ")":
+                    this.desempilhaParenteses(memoria);
+                    break;
                 case "=":
                     operadores.add(caracter);
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case ">":
-                    operadores.add(caracter);
+                    if (ultimoCaracter == UltimoCaracter.operador && operadores.get(operadores.size() - 1).equals("<")) {
+                        operadores.set(operadores.size() - 1, operadores.get(operadores.size() - 1) + caracter);
+                    }
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case "<":
@@ -55,51 +62,62 @@ public class ReconhecimentoExpressaoLogica<E> {
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case "|":
-                    if (ultimoCaracter == UltimoCaracter.operador) {
-                        this.desenpilhaResolveAnterior();
-                        operadores.set(operadores.size() - 1, operadores.lastElement() + caracter);
+                    if (ultimoCaracter == UltimoCaracter.operador && operadores.get(operadores.size() - 1).equals("|")) {
+                        operadores.set(operadores.size() - 1, operadores.get(operadores.size() - 1) + caracter);
                     } else {
+                        this.desenpilhaResolveAnterior(memoria);
                         operadores.add(caracter);
                     }
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case "&":
-                    if (ultimoCaracter == UltimoCaracter.operador) {
-                        this.desenpilhaResolveAnterior();
-                        operadores.set(operadores.size() - 1, operadores.lastElement() + caracter);
+                    if (ultimoCaracter == UltimoCaracter.operador && operadores.get(operadores.size() - 1).equals("&")) {
+                        operadores.set(operadores.size() - 1, operadores.get(operadores.size() - 1) + caracter);
                     } else {
+                        this.desenpilhaResolveAnterior(memoria);
                         operadores.add(caracter);
                     }
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
+                case " ":
+                    break;
                 default:
+                    System.out.println(operandos.size());
                     if (ultimoCaracter == UltimoCaracter.operando && !operandos.isEmpty()) {
-                        operandos.set(operandos.size() - 1, operandos.lastElement() + caracter);
+                        operandos.set(operandos.size() - 1, operandos.get(operandos.size() - 1) + caracter);
                     } else {
                         operandos.add(caracter);
                     }
                     ultimoCaracter = UltimoCaracter.operando;
             }
         }
-        return this.resolverExpressao();
+        return this.resolverExpressao(memoria);
     }
 
-    public void desenpilhaResolveAnterior() {
+    public void desenpilhaResolveAnterior(Memoria memoria) {
         String numero2 = operandos.pop();
         String numero1 = operandos.pop();
-        resultados.add(calculos.calcularExpressaoLogicaBinaria(numero1, numero2, operadores.pop()));
+        resultados.add(calculos.calcularExpressaoLogicaBinaria(numero1, numero2, operadores.remove(operadores.size() - 1), memoria));
     }
 
-    public boolean resolverExpressao() {
-        this.desenpilhaResolveAnterior();
-        while (!operadores.empty()) {
-            Boolean resultado = calculos.calcularExpressaoLogicaBinaria(resultados.remove(), resultados.remove(), operadores.pop());
-            if (operadores.empty()) {
-                resultados.add(resultado);
-            }
-            operandos.add(resultado.toString());
+    public void resolveExpressaoAnteriorFinal(Memoria memoria) {
+        Boolean resultado = calculos.calcularExpressaoLogicaBinaria(resultados.remove(0), resultados.get(0), operadores.remove(0), memoria);
+        resultados.set(0, resultado);
+    }
+
+    public boolean resolverExpressao(Memoria memoria) {
+        this.desenpilhaResolveAnterior(memoria);
+        while (!operadores.isEmpty()) {
+            this.resolveExpressaoAnteriorFinal(memoria);
         }
-        return Boolean.parseBoolean(operandos.lastElement());
+        return resultados.get(0);
+    }
+
+    public void desempilhaParenteses(Memoria memoria) {
+        do {
+            this.resolveExpressaoAnteriorFinal(memoria);
+        } while (!operadores.get(operadores.size() - 1).equals("("));
+        operadores.remove(operadores.size() - 1);
     }
 
 }

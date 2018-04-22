@@ -3,10 +3,10 @@ package Analisador;
 import Excecoes.ExcecaoEntradaDados;
 import java.util.Stack;
 
-public class ReconhecimentoExpressoes {
+public class ReconhecimentoExpressoesNumericas {
 
     private final String[] precedencia = {"^", "*", "/"};
-    private final Calculo calculadora;
+    private final CalculoNumerico calculadora;
 
     private final Stack<String> operandos;
     private final Stack<String> operadores;
@@ -17,9 +17,9 @@ public class ReconhecimentoExpressoes {
 
     private UltimoCaracter ultimoCaracter;
 
-    public ReconhecimentoExpressoes() {
+    public ReconhecimentoExpressoesNumericas() {
         ultimoCaracter = UltimoCaracter.operador;
-        calculadora = new Calculo();
+        calculadora = new CalculoNumerico();
         operandos = new Stack();
         operadores = new Stack();
     }
@@ -98,23 +98,23 @@ public class ReconhecimentoExpressoes {
 
     public void desempilhaParenteses() {
         do {
-            String segundoNumero = operandos.pop();
-            String primeiroNumero = operandos.pop();
-            String operador = operadores.pop();
-            float resultado = calculadora.calcularBinario(operador, Float.parseFloat(primeiroNumero), Float.parseFloat(segundoNumero));
-            operandos.add(Float.toString(resultado));
+            this.calculaUmAntecessor();
         } while (!operadores.lastElement().equals("("));
         operadores.pop();
     }
 
     public void desempilha() {
         while (!operadores.empty()) {
-            String segundoNumero = operandos.pop();
-            String primeiroNumero = operandos.pop();
-            String operador = operadores.pop();
-            float resultado = calculadora.calcularBinario(operador, Float.parseFloat(primeiroNumero), Float.parseFloat(segundoNumero));
-            operandos.add(Float.toString(resultado));
+            this.calculaUmAntecessor();
         }
+    }
+
+    public void calculaUmAntecessor() {
+        String segundoNumero = operandos.pop();
+        String primeiroNumero = operandos.pop();
+        String operador = operadores.pop();
+        float resultado = calculadora.calcularBinario(operador, Float.parseFloat(primeiroNumero), Float.parseFloat(segundoNumero));
+        operandos.add(Float.toString(resultado));
     }
 
 }

@@ -1,6 +1,6 @@
 package Comandos;
 
-import Analisador.ReconhecimentoExpressoes;
+import Analisador.ReconhecimentoExpressoesNumericas;
 import Memoria.Memoria;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class ComandoFor extends Comando{
     @Override
     public Memoria executar(Memoria memoria) {
         this.memoria = memoria;
-        ReconhecimentoExpressoes exp = new ReconhecimentoExpressoes();
+        ReconhecimentoExpressoesNumericas exp = new ReconhecimentoExpressoesNumericas();
         String atribuicao;
         String[] partesAtribuicao;
         String nomeVar;

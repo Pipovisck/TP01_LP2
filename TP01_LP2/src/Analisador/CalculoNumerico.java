@@ -9,7 +9,7 @@ package Analisador;
  *
  * @author Aluno
  */
-public class Calculo {
+public class CalculoNumerico {
 
     public float calcularBinario(String operando, float valor1, float valor2) {
         float resultado;
