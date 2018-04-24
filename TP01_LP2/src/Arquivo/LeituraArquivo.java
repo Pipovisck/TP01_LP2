@@ -1,8 +1,11 @@
 package Arquivo;
 
 import Excecoes.ExcecaoArquivoVazio;
+import com.sun.javafx.scene.control.skin.Utils;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -10,10 +13,10 @@ import java.util.*;
  */
 public class LeituraArquivo {
     private String diretorio;
-    private List listaPalavras;
+    private ArrayList<Character> caracteres;
 
     public LeituraArquivo() {
-        listaPalavras = new LinkedList();
+        caracteres = new ArrayList<Character>();
     }
     public String getDiretorio() {
         return diretorio;
@@ -21,37 +24,22 @@ public class LeituraArquivo {
     public void setDiretorio(String diretorio) {
         this.diretorio = diretorio;
     }
-    public List retornaLista()throws ExcecaoArquivoVazio {
-        String linha;
-        String[] palavras;
+    public ArrayList retornaLista()throws ExcecaoArquivoVazio {
 
-        //Esse try com parenteses foi adicionado no Java 7. Eh o java-with-resources e ja fecha os arquivos automaticamente.
-        
-        try (FileReader arq = new FileReader(this.diretorio);
-            BufferedReader lerArq = new BufferedReader(arq)){
+        try {
+            Scanner scanner = new Scanner(new FileInputStream("cefetiny.txt"));
 
-            linha = lerArq.readLine();
-            if(linha == null){
-                throw new ExcecaoArquivoVazio();
+            scanner.useDelimiter("");
+
+            while(scanner.hasNext()){
+                caracteres.add(scanner.next().toCharArray()[0]);
             }
-            while (linha != null) {
-                palavras = linha.split(" ");
-                listaPalavras.addAll(Arrays.asList(palavras)); 
-                linha = lerArq.readLine();
-            }
-        } catch (IOException e) {
-                System.err.println("Erro na abertura do arquivo.\n" + e.getMessage());
         }
         
-        //Teste
-        System.out.println(listaPalavras.size());
-        for(int i = 0; i < listaPalavras.size(); i ++)
-            System.out.println(listaPalavras.get(i).toString() + " ");
-        AnalisaPrograma x = new AnalisaPrograma(listaPalavras);
-        x.excluiEspacos();
-        //x.retornaListaLinhas();
-        //Fim teste
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(LeituraArquivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return listaPalavras;
+        return caracteres;
     }
 }
