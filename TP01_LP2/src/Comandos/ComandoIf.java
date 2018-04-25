@@ -5,6 +5,7 @@
  */
 package Comandos;
 
+import Analisador.ReconhecimentoExpressaoLogica;
 import Memoria.Memoria;
 
 /**
@@ -13,10 +14,21 @@ import Memoria.Memoria;
  */
 public class ComandoIf extends Comando {
     
+        String[] vetorComandos;
+        String condicional;
+        ReconhecimentoExpressaoLogica expressao;
+    
     public ComandoIf (String[] vetorComandos){
+        this.vetorComandos = vetorComandos;
+    }
+
+    @Override
+    public Memoria executar(Memoria memoria) {
         int aux = 0;
         
-        if(/* Teste de expressão lógica */ true){
+        condicional = vetorComandos[0].substring(3, (vetorComandos[0].length() - 4));
+        
+        if(expressao.calcularExpressao(condicional, memoria)){
             for(int i = 0; i<vetorComandos.length;i++){
                 if(vetorComandos[i] == "endif" || vetorComandos[i] == "else"){
                     aux = 1;
@@ -36,10 +48,6 @@ public class ComandoIf extends Comando {
             }
         }
         
-    }
-
-    @Override
-    public Memoria executar(Memoria memoria) {
         return this.memoria;
     }
 
