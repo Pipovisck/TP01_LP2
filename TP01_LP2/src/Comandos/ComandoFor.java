@@ -1,5 +1,6 @@
 package Comandos;
 
+import Analisador.ReconhecimentoExpressaoLogica;
 import Analisador.ReconhecimentoExpressoesNumericas;
 import Memoria.Memoria;
 import java.util.LinkedList;
@@ -28,10 +29,12 @@ public class ComandoFor extends Comando{
     public Memoria executar(Memoria memoria) {
         this.memoria = memoria;
         ReconhecimentoExpressoesNumericas exp = new ReconhecimentoExpressoesNumericas();
+        ReconhecimentoExpressaoLogica expLog = new ReconhecimentoExpressaoLogica();
+        ComandoAtribuicao atribui;
         String atribuicao;
         String[] partesAtribuicao;
         String nomeVar;
-        int valorVar;
+        String valorVar;
         String condicaoParada;
         char[] linha1 = vetorLinhas[0].toCharArray();
         String linhaSemEspaco = tiraEspaco(linha1);
@@ -43,39 +46,36 @@ public class ComandoFor extends Comando{
         partesAtribuicao = atribuicao.split(":=");
         
         nomeVar = partesAtribuicao[0];
-        valorVar = Integer.parseInt(exp.calcularExpressao(partesAtribuicao[1]));
+        valorVar = exp.calcularExpressao(partesAtribuicao[1]);
         
-        if(memoria.getVariavel(partesAtribuicao[0]) == null){
-            memoria.add(nomeVar, valorVar);
-        }else{
-            memoria.setVariavel(nomeVar, valorVar);
-        }
+        atribui = new ComandoAtribuicao(nomeVar, valorVar);
+        atribui.executar(this.memoria);
         
         condicaoParada = pegaCondicaoParada(linha1);
         
         //Cria o laço de repetição
         int iterador = Integer.parseInt(memoria.getVariavel(nomeVar).toString());
         
-//        if (this.downto == true) {
-//            while(condicaoParada == true){
-//                listaComandos.forEach((comando) -> {
-//                    comando.executar(this.memoria);
-//                });
-//                
-//                iterador--;
-//                memoria.setVariavel(nomeVar, iterador);
-//            }
-//            
-//        }else if(this.to == true){
-//            while(condicaoParada == true){
-//                listaComandos.forEach((comando) -> {
-//                    comando.executar(this.memoria);
-//                });
-//                
-//                iterador++;
-//                memoria.setVariavel(nomeVar, iterador);
-//            }
-//        }
+        if (this.downto == true) {
+            while(expLog.calcularExpressao(condicaoParada, this.memoria) == true){
+                listaComandos.forEach((comando) -> {
+                    comando.executar(this.memoria);
+                });
+                
+                iterador--;
+                memoria.setVariavel(nomeVar, iterador);
+            }
+            
+        }else if(this.to == true){
+            while(expLog.calcularExpressao(condicaoParada, this.memoria) == true){
+                listaComandos.forEach((comando) -> {
+                    comando.executar(this.memoria);
+                });
+                
+                iterador++;
+                memoria.setVariavel(nomeVar, iterador);
+            }
+        }
 
         return this.memoria;
     }
@@ -113,6 +113,10 @@ public class ComandoFor extends Comando{
             return false;
         }
         
+        //Confere se o último comando do vetor é um endfor
+        if (!vetorLinhas[vetorLinhas.length-1].equals("endfor")) {
+            return false;
+        }
         
         return true;
     }
