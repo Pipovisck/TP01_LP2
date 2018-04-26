@@ -7,47 +7,53 @@ package Comandos;
 
 import Analisador.ReconhecimentoExpressaoLogica;
 import Memoria.Memoria;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Aluno
  */
 public class ComandoIf extends Comando {
-    
-        String[] vetorComandos;
-        String condicional;
-        ReconhecimentoExpressaoLogica expressao;
-    
-    public ComandoIf (String[] vetorComandos){
+
+    private ArrayList<String> vetorComandos;
+    private String condicional;
+    private ReconhecimentoExpressaoLogica expressao;
+    private AnalisaComandos analisaComandos;
+    private ArrayList<Comando> comandos;
+    private ArrayList<String> listaElse;
+    private ArrayList<String> listaIf;
+
+    public ComandoIf(ArrayList<String> vetorComandos) {
         this.vetorComandos = vetorComandos;
+        listaIf = new ArrayList<>();
+        listaElse = new ArrayList<>();
+        analisaComandos = new AnalisaComandos();
+//        comandos = analisaComandos.comparaPalavras(vetorComandos);
     }
 
     @Override
     public Memoria executar(Memoria memoria) {
-        int aux = 0;
+        Integer index = null;
         
-        condicional = vetorComandos[0].substring(3, (vetorComandos[0].length() - 4));
-        
-        if(expressao.calcularExpressao(condicional, memoria)){
-            for(int i = 0; i<vetorComandos.length;i++){
-                if(vetorComandos[i] == "endif" || vetorComandos[i] == "else"){
-                    aux = 1;
-                }
-                else if(aux == 0){
-                    // executa qualquer outro comando
-                }
-            }
-        }else{
-            for(int i = 0; i<vetorComandos.length;i++){
-                if(vetorComandos[i] == "endif"){
-                    aux = 1;
-                }
-                else if(aux == 0){
-                    // executa qualquer outro comando
-                }
+        for (String linha : vetorComandos) {
+            if(linha.equals("else")){
+                index = vetorComandos.indexOf(linha);
             }
         }
         
+        if(index != null){
+            listaIf = (ArrayList<String>) vetorComandos.subList(1, index - 1);
+            listaElse = (ArrayList<String>) vetorComandos.subList(index + 1, vetorComandos.size() - 2);
+        }
+        condicional = vetorComandos.get(0).substring(3, (vetorComandos.get(0).length() - 4));
+
+        if (expressao.calcularExpressao(condicional, memoria)) {
+
+        } else {
+
+        }
+
         return this.memoria;
     }
 

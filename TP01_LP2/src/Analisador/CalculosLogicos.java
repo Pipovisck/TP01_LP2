@@ -13,6 +13,11 @@ import Memoria.Memoria;
  * @param <E>
  */
 public class CalculosLogicos<E> {
+    private final ReconhecimentoExpressaoLogica expressaoAritimetica;
+    
+    public CalculosLogicos(){
+        expressaoAritimetica = new ReconhecimentoExpressaoLogica();
+    }
 
     public boolean calcularExpressaoLogicaBinaria(E operando1, E operando2, String operadorLogico, Memoria memoria) {
         switch (operadorLogico) {
