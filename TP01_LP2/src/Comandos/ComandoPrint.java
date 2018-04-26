@@ -9,7 +9,7 @@ public class ComandoPrint extends Comando<String>{
     String impressao;
     int inicioParametros;
 
-    public ComandoPrint(String linhaComando, Memoria memoria){
+    public ComandoPrint(String linhaComando){
         super();
         
         this.linhaComando = linhaComando;
