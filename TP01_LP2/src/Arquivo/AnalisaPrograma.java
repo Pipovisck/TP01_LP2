@@ -83,12 +83,7 @@ public class AnalisaPrograma {
                                     parenteses--;
                                 }
                             }
-                            if(ehBloco == true){
-                                blocoComando.add(buffer);
-                            }
-                            else{
                             listaComandos.add(buffer);
-                            }
                             buffer = "";
                         }
                     }
@@ -126,12 +121,8 @@ public class AnalisaPrograma {
                                     parenteses--;
                                 }
                             }
-                            if(ehBloco == true){
-                                blocoComando.add(buffer);
-                            }
-                            else{
+                            
                             listaComandos.add(buffer);
-                            }
                             buffer = "";
                         }
                     }
@@ -181,39 +172,140 @@ public class AnalisaPrograma {
                                 i+=4;
                                 ehBloco = true;
                             }
-                            blocoComando.add(buffer);
+                            listaComandos.add(buffer);
                             buffer = "";
                         }
                     }
                 }
-                else if(listaCaracteres.get(i) == 'w'){
-                    
+                else if(listaCaracteres.get(i+3) == 'w'){
+                    if(listaCaracteres.get(i+4) == 'h' && listaCaracteres.get(i+5) == 'i' && listaCaracteres.get(i+6) == 'l' && listaCaracteres.get(i+5) == 'e'){
+                        if(listaCaracteres.get(i+6) == ' '){
+                            for(int j = i+7; j<listaCaracteres.size(); j++){
+                                if(listaCaracteres.get(j) != ' '){
+                                    if(listaCaracteres.get(j)=='('){
+                                        ehComando = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        else if(listaCaracteres.get(i+6) == '('){
+                                ehComando = true;
+                        }
+                        
+                        if(ehComando==true){
+                            while(listaCaracteres.get(i) != '('){
+                                buffer += (String.valueOf(listaCaracteres.get(i)));
+                                i++;
+                            }
+                            buffer += (String.valueOf(listaCaracteres.get(i)));
+                            i++;
+                            for(parenteses = 1; parenteses > 0 && i<listaCaracteres.size(); i++){
+                                buffer += (String.valueOf(listaCaracteres.get(i)));
+
+                                if(listaCaracteres.get(i) == '('){
+                                    parenteses++;
+                                }
+                                else if(listaCaracteres.get(i) == ')'){
+                                    parenteses--;
+                                }
+                            }
+                            if(listaCaracteres.get(i) == ' '){
+                                do{
+                                    i++;
+                                }while(listaCaracteres.get(i) == ' ');
+                            }
+                            if(listaCaracteres.get(i) == 'd' && listaCaracteres.get(i+1) == 'o'){
+                                for(int j = i; j < i+4; j++){
+                                    buffer += String.valueOf(listaCaracteres.get(j));
+                                }
+                                i+=4;
+                                ehBloco = true;
+                            }
+                            listaComandos.add(buffer);
+                            buffer = "";
+                        }
+                    }
                 }
+                
                 else if(listaCaracteres.get(i) == 'f'){
-                    
+                    if(listaCaracteres.get(i+1) == 'o' && listaCaracteres.get(i+2) == 'r'){
+                        if(listaCaracteres.get(i+6) == ' '){
+                            for(int j = i+7; j<listaCaracteres.size(); j++){
+                                if(listaCaracteres.get(j) != ' '){
+                                    if(listaCaracteres.get(j)=='('){
+                                        ehComando = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        else if(listaCaracteres.get(i+6) == '('){
+                                ehComando = true;
+                        }
+
+                        if(ehComando==true){
+                            while(listaCaracteres.get(i) != '('){
+                                buffer += (String.valueOf(listaCaracteres.get(i)));
+                                i++;
+                            }
+                            buffer += (String.valueOf(listaCaracteres.get(i)));
+                            i++;
+                            for(parenteses = 1; parenteses > 0 && i<listaCaracteres.size(); i++){
+                                buffer += (String.valueOf(listaCaracteres.get(i)));
+
+                                if(listaCaracteres.get(i) == '('){
+                                    parenteses++;
+                                }
+                                else if(listaCaracteres.get(i) == ')'){
+                                    parenteses--;
+                                }
+                            }
+                            if(listaCaracteres.get(i) == ' '){
+                                do{
+                                    i++;
+                                }while(listaCaracteres.get(i) == ' ');
+                            }
+                            if(listaCaracteres.get(i) == 'd' && listaCaracteres.get(i+1) == 'o'){
+                                for(int j = i; j < i+4; j++){
+                                    buffer += String.valueOf(listaCaracteres.get(j));
+                                }
+                                i+=4;
+                                ehBloco = true;
+                            }
+                            listaComandos.add(buffer);
+                            buffer = "";
+                        }
+                    }
                 }
                 else if(listaCaracteres.get(i) == 'e'){
                     if(listaCaracteres.get(i+1) == 'n' && listaCaracteres.get(i+2) == 'd'){
                         if(listaCaracteres.get(i+3)=='i' && listaCaracteres.get(i+4) == 'f'){
-                            if(ehBloco==false){
-                                //ERRO DE SINTAXE
+                            for(int j=i; j < i+5; j++){
+                                buffer += String.valueOf(listaCaracteres.get(j));
                             }
-                            else{
-                                for(int j=i; j < i+5; j++){
-                                    buffer += String.valueOf(listaCaracteres.get(j));
-                                }
-                                i+=5;
-                                blocoComando.add(buffer);
-                                listaComandos.add(blocoComando);
-                                buffer = "";
-                                ehBloco=false;
-                            }
+                            i+=5;
+                            listaComandos.add(buffer);
+                            buffer = "";
+                            ehBloco=false;
                         }
                         else if(listaCaracteres.get(i+3) == 'f' && listaCaracteres.get(i+4) == 'o' && listaCaracteres.get(i+5) == 'r'){
-                            
+                            for(int j=i; j < i+6; j++){
+                                buffer += String.valueOf(listaCaracteres.get(j));
+                            }
+                            i+=6;
+                            listaComandos.add(buffer);
+                            buffer = "";
+                            ehBloco=false;
                         }
-                        else if(listaCaracteres.get(i+3) == 'w' && listaCaracteres.get(i+4) == 'h' && listaCaracteres.get(i+5) == 'i' && listaCaracteres.get(i+6) == 'l' && listaCaracteres.get(i+5) == 'e'){
-                            
+                        else if(listaCaracteres.get(i+3) == 'w' && listaCaracteres.get(i+4) == 'h' && listaCaracteres.get(i+5) == 'i' && listaCaracteres.get(i+6) == 'l' && listaCaracteres.get(i+7) == 'e'){
+                            for(int j=i; j < i+8; j++){
+                                buffer += String.valueOf(listaCaracteres.get(j));
+                            }
+                            i+=8;
+                            listaComandos.add(buffer);
+                            buffer = "";
+                            ehBloco=false;
                         }
                     }
                 }
