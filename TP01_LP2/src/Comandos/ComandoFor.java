@@ -3,7 +3,7 @@ package Comandos;
 import Analisador.ReconhecimentoExpressaoLogica;
 import Analisador.ReconhecimentoExpressoesNumericas;
 import Memoria.Memoria;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,19 +31,20 @@ public class ComandoFor extends Comando{
         ReconhecimentoExpressoesNumericas exp = new ReconhecimentoExpressoesNumericas();
         ReconhecimentoExpressaoLogica expLog = new ReconhecimentoExpressaoLogica();
         ComandoAtribuicao atribui;
-        String atribuicao;
+        String comandoAtribuicao;
         String[] partesAtribuicao;
         String nomeVar;
         String valorVar;
-        String condicaoParada;
+        String expressaoCondicaoParada;
+        boolean condicaoParada;
         char[] linha1 = vetorLinhas[0].toCharArray();
         String linhaSemEspaco = tiraEspaco(linha1);
         
         linha1 = linhaSemEspaco.toCharArray();
         
         //Parte que mexe com a atribuição
-        atribuicao = pegaComandoAtribuicao(linha1);
-        partesAtribuicao = atribuicao.split(":=");
+        comandoAtribuicao = pegaComandoAtribuicao(linha1);
+        partesAtribuicao = comandoAtribuicao.split(":=");
         
         nomeVar = partesAtribuicao[0];
         valorVar = exp.calcularExpressao(partesAtribuicao[1]);
@@ -51,29 +52,32 @@ public class ComandoFor extends Comando{
         atribui = new ComandoAtribuicao(nomeVar, valorVar);
         atribui.executar(this.memoria);
         
-        condicaoParada = pegaCondicaoParada(linha1);
+        expressaoCondicaoParada = pegaCondicaoParada(linha1);
         
         //Cria o laço de repetição
         int iterador = Integer.parseInt(memoria.getVariavel(nomeVar).toString());
+        condicaoParada = expLog.calcularExpressao(expressaoCondicaoParada, this.memoria);
         
         if (this.downto == true) {
-            while(expLog.calcularExpressao(condicaoParada, this.memoria) == true){
+            while(condicaoParada == true){
                 listaComandos.forEach((comando) -> {
                     comando.executar(this.memoria);
                 });
                 
                 iterador--;
-                memoria.setVariavel(nomeVar, iterador);
+                this.memoria.setVariavel(nomeVar, iterador);
+                condicaoParada = expLog.calcularExpressao(expressaoCondicaoParada, this.memoria);
             }
             
         }else if(this.to == true){
-            while(expLog.calcularExpressao(condicaoParada, this.memoria) == true){
+            while(condicaoParada == true){
                 listaComandos.forEach((comando) -> {
                     comando.executar(this.memoria);
                 });
                 
                 iterador++;
-                memoria.setVariavel(nomeVar, iterador);
+                this.memoria.setVariavel(nomeVar, iterador);
+                condicaoParada = expLog.calcularExpressao(expressaoCondicaoParada, this.memoria);
             }
         }
 
@@ -113,6 +117,10 @@ public class ComandoFor extends Comando{
             return false;
         }
         
+        if (pegaListaComandos() == null) {
+            return false;
+        }
+        
         //Confere se o último comando do vetor é um endfor
         if (!vetorLinhas[vetorLinhas.length-1].equals("endfor")) {
             return false;
@@ -122,12 +130,13 @@ public class ComandoFor extends Comando{
     }
     
     private List<Comando> pegaListaComandos(){
-        List listaComand = new LinkedList();
+        List listaComand = new ArrayList();
+        AnalisaComandos analisa = new AnalisaComandos();
         for (int i = 1; i < vetorLinhas.length - 1; i++) {
             listaComand.add(vetorLinhas[i]);
         }
         
-        return listaComand;
+        return analisa.comparaPalavras(listaComand);
     }
     
     private String tiraEspaco(char[] linha){
