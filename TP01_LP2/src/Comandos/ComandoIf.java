@@ -29,29 +29,53 @@ public class ComandoIf extends Comando {
         listaIf = new ArrayList<>();
         listaElse = new ArrayList<>();
         analisaComandos = new AnalisaComandos();
-//        comandos = analisaComandos.comparaPalavras(vetorComandos);
+        comandos = analisaComandos.comparaPalavras(vetorComandos);
     }
 
     @Override
     public Memoria executar(Memoria memoria) {
         Integer index = null;
-        
+        Integer indexInicioIf = null;
+
         for (String linha : vetorComandos) {
-            if(linha.equals("else")){
-                index = vetorComandos.indexOf(linha);
+            if (linha.equals("then")) {
+                indexInicioIf = vetorComandos.indexOf(linha) + 1;
+                break;
             }
         }
-        
-        if(index != null){
-            listaIf = (ArrayList<String>) vetorComandos.subList(1, index - 1);
-            listaElse = (ArrayList<String>) vetorComandos.subList(index + 1, vetorComandos.size() - 2);
+        for (String linha : vetorComandos) {
+            if (linha.equals("else")) {
+                index = vetorComandos.indexOf(linha);
+                break;
+            }
         }
+
+        if (index != null) {
+            List<String> aux = vetorComandos.subList(indexInicioIf, vetorComandos.size() - 2);
+            aux.forEach((palavra) -> {
+                listaElse.add(palavra);
+            });
+        } else {
+            index = vetorComandos.size() - 1;
+        }
+
+        List<String> aux = vetorComandos.subList(indexInicioIf, index);
+        aux.forEach((palavra) -> {
+            listaIf.add(palavra);
+        });
+
         condicional = vetorComandos.get(0).substring(3, (vetorComandos.get(0).length() - 4));
 
         if (expressao.calcularExpressao(condicional, memoria)) {
-
+            comandos = analisaComandos.comparaPalavras(listaIf);
+            comandos.forEach((comando) -> {
+                comando.executar(memoria);
+            });
         } else {
-
+            comandos = analisaComandos.comparaPalavras(listaElse);
+            comandos.forEach((comando) -> {
+                comando.executar(memoria);
+            });
         }
 
         return this.memoria;
