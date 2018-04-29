@@ -25,16 +25,17 @@ public class Compilador {
     private ArrayList<Comando> comandos;
     private Memoria memoria;
 
-    public Compilador() {
-        this.analisadorPrograma = new AnalisaPrograma();
+    public Compilador() throws ExcecaoArquivoVazio {
         this.leitorArquivo = new LeituraArquivo();
+        this.analisadorPrograma = new AnalisaPrograma(leitorArquivo.retornaLista());
+        
         this.leitorArquivo.setDiretorio("C:\\Users\\melog\\OneDrive\\Área de Trabalho\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
         this.memoria = new Memoria();
     }
 
     public void rodarPrograma() throws ExcecaoArquivoVazio {
-        List<String> palavras = leitorArquivo.retornaLista();
+        ArrayList palavras = leitorArquivo.retornaLista();
         
         analisadorPrograma = new AnalisaPrograma (palavras);
         

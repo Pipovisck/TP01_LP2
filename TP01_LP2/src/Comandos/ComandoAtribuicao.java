@@ -1,4 +1,5 @@
 package Comandos;
+
 import Constantes.Constantes;
 import Memoria.Memoria;
 
@@ -15,16 +16,17 @@ public class ComandoAtribuicao extends Comando {
 
     private final String nomeVariavel;
     private String conteudoVariavel;
-    
 
     public enum TipoDado {
         Integer, String, Float
     }
 
-    public ComandoAtribuicao(String nomeVariavel, String conteudoVariavel) {
+    public ComandoAtribuicao(String linha) {
         super();
-        this.nomeVariavel = nomeVariavel;
-        this.conteudoVariavel = conteudoVariavel;
+        String[] partesLinha;
+        partesLinha = linha.split(":=");
+        this.nomeVariavel = partesLinha[0];
+        this.conteudoVariavel = partesLinha[1];
     }
 
     public TipoDado descobreTipo(String valor) {
@@ -64,7 +66,7 @@ public class ComandoAtribuicao extends Comando {
 
     @Override
     public boolean verificarSintaxe() {
-        return this.verificaSintaxeVariavel() && this.verificaSintaxeExpressao();
+        return this.verificaSintaxeVariavel();
     }
 
     public boolean verificaSintaxeVariavel() {
@@ -101,11 +103,6 @@ public class ComandoAtribuicao extends Comando {
                 return false;
             }
         }
-        return true;
-    }
-
-    public boolean verificaSintaxeExpressao() {
-
         return true;
     }
 }

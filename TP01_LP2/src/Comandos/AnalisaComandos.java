@@ -13,29 +13,29 @@ import java.util.ArrayList;
  * @author Augusto
  */
 public class AnalisaComandos {
-
-    String[] palavrasReservadas;
+    
     ArrayList<Comando> comandos;
     String[] vetorComandos;
 
     public ArrayList<Comando> comparaPalavras(ArrayList<String> linhas) {
+        
         vetorComandos = new String[linhas.size()];
         comandos = new ArrayList<>();
-        int aux = 0;
-        int k = 0;
+        int aux;
+        int k;
 
         for (int i = 0; i < linhas.size(); i++) {
 
             if ((linhas.get(i).substring(0, 4).equals(PALAVRAS_CONHECIDAS[11])
-                    && (linhas.get(i).substring(5) == "(" || linhas.get(i).substring(5) == " ")
+                    && (" ".equals(linhas.get(i).substring(5)) || "(".equals(linhas.get(i).substring(5)))
                     || (linhas.get(i).substring(0, 6).equals(PALAVRAS_CONHECIDAS[12])
-                    && (linhas.get(i).substring(7) == "(" || linhas.get(i).substring(7) == " ")))) {
+                    && ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7)))))) {
                 comandos.add(new ComandoPrint(linhas.get(i)));
             } else if (linhas.get(i).substring(0, 6).equals(PALAVRAS_CONHECIDAS[13])
-                    && (linhas.get(i).substring(7) == "(" || linhas.get(i).substring(7) == " ")) {
+                    && ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7)))) {
                 comandos.add(new ComandoReadInt(linhas.get(i)));
             } else if (linhas.get(i).substring(0, 1).equals(PALAVRAS_CONHECIDAS[0])
-                    && (linhas.get(i).substring(2) == "(" || linhas.get(i).substring(2) == " ")) {
+                    && ("(".equals(linhas.get(i).substring(2)) || " ".equals(linhas.get(i).substring(2)))) {
                 aux = i + 1;
                 k = 0;
 
@@ -45,9 +45,14 @@ public class AnalisaComandos {
                     k++;
                 } while (!linhas.get(i).equals(PALAVRAS_CONHECIDAS[3]));
 
-                comandos.add(new ComandoIf(vetorComandos));
+                ArrayList<String> auxIf;
+                auxIf = new ArrayList<>();
+                for (String comando : vetorComandos) {
+                    auxIf.add(comando);
+                }
+                comandos.add(new ComandoIf(auxIf));
             } else if (linhas.get(i).substring(0, 4).equals(PALAVRAS_CONHECIDAS[4])
-                    && (linhas.get(i).substring(5) == "(" || linhas.get(i).substring(5) == " ")) {
+                    && ("(".equals(linhas.get(i).substring(5)) || " ".equals(linhas.get(i).substring(5)))) {
                 aux = i + 1;
                 k = 0;
 
@@ -60,7 +65,7 @@ public class AnalisaComandos {
                 comandos.add(new ComandoWhile(vetorComandos));
 
             } else if (linhas.get(i).substring(0, 2).equals(PALAVRAS_CONHECIDAS[7])
-                    && (linhas.get(i).substring(3) == "(" || linhas.get(i).substring(3) == " ")) {
+                    && ("(".equals(linhas.get(i).substring(3)) || " ".equals(linhas.get(i).substring(3)))) {
                 aux = i + 1;
                 k = 0;
 
@@ -75,7 +80,7 @@ public class AnalisaComandos {
             } else if (linhas.get(i).contains(":=")) {
                 comandos.add(new ComandoAtribuicao(linhas.get(i)));
             } else if (linhas.get(i).equals(PALAVRAS_CONHECIDAS[14])) {
-                comandos.add(new ComandoEnd());
+//                comandos.add(new ComandoEnd());
                 i = linhas.size();
             }
 

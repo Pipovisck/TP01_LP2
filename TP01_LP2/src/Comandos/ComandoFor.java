@@ -49,7 +49,7 @@ public class ComandoFor extends Comando{
         nomeVar = partesAtribuicao[0];
         valorVar = exp.calcularExpressao(partesAtribuicao[1]);
         
-        atribui = new ComandoAtribuicao(nomeVar, valorVar);
+        atribui = new ComandoAtribuicao(comandoAtribuicao);
         atribui.executar(this.memoria);
         
         expressaoCondicaoParada = pegaCondicaoParada(linha1);
@@ -130,7 +130,8 @@ public class ComandoFor extends Comando{
     }
     
     private List<Comando> pegaListaComandos(){
-        List listaComand = new ArrayList();
+        ArrayList<String> listaComand;
+        listaComand = new ArrayList<>();
         AnalisaComandos analisa = new AnalisaComandos();
         for (int i = 1; i < vetorLinhas.length - 1; i++) {
             listaComand.add(vetorLinhas[i]);

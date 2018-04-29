@@ -123,7 +123,7 @@ public class ComandoWhile extends Comando {
     }
     
     private List<Comando> montaListaComandos(){
-        List comand = new ArrayList();
+        ArrayList<String> comand = new ArrayList<>();
         AnalisaComandos analisa = new AnalisaComandos();
         
         for (int i = 1; i < this.vetorLinhas.length - 1; i++) {
