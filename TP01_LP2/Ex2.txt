@@ -1,0 +1,16 @@
+a:=0
+b:=0
+c:=0
+d:=0
+readint(a)
+readint(b)
+readint(c)
+readint(d)
+media :=4
+if (media >= 6) then
+  print("Aprovado")
+else
+  print("Reprovado")
+endif
+  print("Media: " + media)
+end

@@ -1,0 +1,12 @@
+soma := 0
+
+for a:= 0 to a<15 do
+  readInt(num)
+  aux := num
+  for b:= 1 to b<aux do
+    num := num * b
+  endfor
+  soma := soma + num
+endfor
+print(soma)
+end

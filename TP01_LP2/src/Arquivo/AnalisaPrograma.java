@@ -10,14 +10,14 @@ import java.util.List;
  */
 public class AnalisaPrograma {
     private ArrayList<Character> listaCaracteres;
-    private ArrayList<Object> listaComandos;
+    private ArrayList<String> listaComandos;
     
     public AnalisaPrograma(ArrayList<Character> listaCaracteres){
         this.listaCaracteres = listaCaracteres;
-        listaComandos = new ArrayList<Object>();
+        listaComandos = new ArrayList<>();
     }
     
-    public void separaComandos(){
+    public ArrayList<String> separaComandos(){
         String buffer = "";
         boolean ehBloco = false;
         boolean ehString = false;
@@ -311,8 +311,10 @@ public class AnalisaPrograma {
                 }
                 if(ehComando == false){
                     for(i=i; i<listaCaracteres.size(); i++){
-                        buffer += String.valueOf(listaCaracteres.get(i));
-                        if(!(listaCaracteres.get(i) >= 'A' && listaCaracteres.get(i) <= 'Z' || listaCaracteres.get(i) >= 'a' && listaCaracteres.get(i) <= 'z' || listaCaracteres.get(i) >= '0' && listaCaracteres.get(i) <= '9')){
+                        if((listaCaracteres.get(i) >= 'A' && listaCaracteres.get(i) <= 'Z' || listaCaracteres.get(i) >= 'a' && listaCaracteres.get(i) <= 'z' || listaCaracteres.get(i) >= '0' && listaCaracteres.get(i) <= '9')){
+                            buffer += String.valueOf(listaCaracteres.get(i));
+                        }
+                        else{
                             break;
                         }
                     }
@@ -385,5 +387,6 @@ public class AnalisaPrograma {
                 }
             }
         }
+        return listaComandos;
     }
 }

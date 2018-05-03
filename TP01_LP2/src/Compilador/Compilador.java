@@ -29,7 +29,7 @@ public class Compilador {
         this.leitorArquivo = new LeituraArquivo();
         this.analisadorPrograma = new AnalisaPrograma(leitorArquivo.retornaLista());
         
-        this.leitorArquivo.setDiretorio("C:\\Users\\melog\\OneDrive\\Área de Trabalho\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
+        //this.leitorArquivo.setDiretorio("C:\\Users\\melog\\OneDrive\\Área de Trabalho\\TP01_LP2\\TP01_LP2\\cefetiny.txt");
         this.comandos = new ArrayList<>();
         this.memoria = new Memoria();
     }
@@ -38,18 +38,24 @@ public class Compilador {
         ArrayList palavras = leitorArquivo.retornaLista();
         
         analisadorPrograma = new AnalisaPrograma (palavras);
+        ArrayList lista = analisadorPrograma.separaComandos();
+        AnalisaComandos analisa = new AnalisaComandos();
+        ArrayList<Comando> comandos;
+        comandos = analisa.comparaPalavras(lista);
+        
+        
         
 //        palavras.forEach((palavra) -> {
 //            comandos.add(analisadorComandos.comparaPalavras(palavra));
 //        });
 //        
-//        comandos.forEach((comando) -> {
-//            if (!comando.verificarSintaxe()) {
-//                System.out.println("Sintaxe errada" + comando.toString());
-//            }
-//        });
-//        comandos.forEach((comando) -> {
-//            memoria = comando.executar(memoria);
-//        });
+        comandos.forEach((comando) -> {
+            if (!comando.verificarSintaxe()) {
+                System.out.println("Sintaxe errada" + comando.toString());
+            }
+        });
+        comandos.forEach((comando) -> {
+            memoria = comando.executar(memoria);
+        });
     }
 }

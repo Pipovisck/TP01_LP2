@@ -23,6 +23,7 @@ public class ComandoAtribuicao extends Comando {
 
     public ComandoAtribuicao(String linha) {
         super();
+        System.out.println("Linha: " + linha);
         String[] partesLinha;
         partesLinha = linha.split(":=");
         this.nomeVariavel = partesLinha[0];

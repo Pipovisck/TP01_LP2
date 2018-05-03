@@ -14,6 +14,7 @@ public class ComandoReadInt extends Comando<Integer>{
     
     @Override
     public Memoria executar(Memoria memoria){
+//        memoria.add(nomeVar, memoria);
         memoria.setVariavel(nomeVar, Integer.parseInt(scanner.next()));
         return memoria;
     }
