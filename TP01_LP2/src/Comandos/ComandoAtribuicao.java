@@ -1,5 +1,6 @@
 package Comandos;
 
+import Analisador.ReconhecimentoExpressoesNumericas;
 import Constantes.Constantes;
 import Memoria.Memoria;
 
@@ -24,8 +25,7 @@ public class ComandoAtribuicao extends Comando {
     public ComandoAtribuicao(String linha) {
         super();
         System.out.println("Linha: " + linha);
-        String[] partesLinha;
-        partesLinha = linha.split(":=");
+        String[] partesLinha = separaLinha(linha);
         this.nomeVariavel = partesLinha[0];
         this.conteudoVariavel = partesLinha[1];
     }
@@ -49,6 +49,8 @@ public class ComandoAtribuicao extends Comando {
 
     @Override
     public Memoria executar(Memoria memoria) {
+        this.conteudoVariavel = this.calcularConteudo(conteudoVariavel);
+
         this.memoria = memoria;
         TipoDado tipoVariavel = this.descobreTipo(this.conteudoVariavel);
         switch (tipoVariavel) {
@@ -105,5 +107,24 @@ public class ComandoAtribuicao extends Comando {
             }
         }
         return true;
+    }
+
+    public final String[] separaLinha(String linha) {
+        String[] caracteres;
+        caracteres = linha.split("");
+        String linhaSemEspaco = "";
+        for (String caracter : caracteres) {
+            if (!caracter.equalsIgnoreCase(" ")) {
+                linhaSemEspaco += caracter;
+            }
+        }
+        String[] partesLinha = linhaSemEspaco.split(":=");
+        return partesLinha;
+    }
+
+    public String calcularConteudo(String conteudo) {
+        ReconhecimentoExpressoesNumericas reconhecedor = new ReconhecimentoExpressoesNumericas();
+        String conteudoNovo = reconhecedor.calcularExpressao(conteudo);
+        return conteudoNovo;
     }
 }

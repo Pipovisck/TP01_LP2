@@ -27,7 +27,7 @@ public class LeituraArquivo {
     public ArrayList retornaLista()throws ExcecaoArquivoVazio {
 
         try {
-            Scanner scanner = new Scanner(new FileInputStream("Ex2.txt"));
+            Scanner scanner = new Scanner(new FileInputStream("teste_comando_atribuicao.txt"));
 
             scanner.useDelimiter("");
 
