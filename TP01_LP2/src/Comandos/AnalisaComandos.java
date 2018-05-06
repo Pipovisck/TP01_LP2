@@ -23,19 +23,24 @@ public class AnalisaComandos {
         comandos = new ArrayList<>();
         int aux;
         int k;
-
+        
         for (int i = 0; i < linhas.size(); i++) {
-
-            if ((linhas.get(i).substring(0, 4).equals(PALAVRAS_CONHECIDAS[11])
-                    && (" ".equals(linhas.get(i).substring(5)) || "(".equals(linhas.get(i).substring(5)))
-                    || (linhas.get(i).substring(0, 6).equals(PALAVRAS_CONHECIDAS[12])
-                    && ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7)))))) {
+            
+            if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[11])){
+                    if (" ".equals(linhas.get(i).substring(5)) || "(".equals(linhas.get(i).substring(5))){
                 comandos.add(new ComandoPrint(linhas.get(i)));
-            } else if (linhas.get(i).substring(0, 6).equals(PALAVRAS_CONHECIDAS[13])
-                    && ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7)))) {
+                    }
+            }
+            if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[12])){
+                    if ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7))) {
+                comandos.add(new ComandoPrint(linhas.get(i)));
+                    }   
+            } else if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[13])){
+                    if ("(".equals(linhas.get(i).substring(7)) || " ".equals(linhas.get(i).substring(7))) {
                 comandos.add(new ComandoReadInt(linhas.get(i)));
-            } else if (linhas.get(i).substring(0, 1).equals(PALAVRAS_CONHECIDAS[0])
-                    && ("(".equals(linhas.get(i).substring(2)) || " ".equals(linhas.get(i).substring(2)))) {
+                    }
+            } else if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[0])){
+                    if ("(".equals(linhas.get(i).substring(2)) || " ".equals(linhas.get(i).substring(2))) {
                 aux = i + 1;
                 k = 0;
 
@@ -51,8 +56,9 @@ public class AnalisaComandos {
                     auxIf.add(comando);
                 }
                 comandos.add(new ComandoIf(auxIf));
-            } else if (linhas.get(i).substring(0, 4).equals(PALAVRAS_CONHECIDAS[4])
-                    && ("(".equals(linhas.get(i).substring(5)) || " ".equals(linhas.get(i).substring(5)))) {
+                    }
+            } else if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[4])){
+                    if ("(".equals(linhas.get(i).substring(5)) || " ".equals(linhas.get(i).substring(5))) {
                 aux = i + 1;
                 k = 0;
 
@@ -63,9 +69,9 @@ public class AnalisaComandos {
                 } while (!linhas.get(i).equals(PALAVRAS_CONHECIDAS[6]));
 
                 comandos.add(new ComandoWhile(vetorComandos));
-
-            } else if (linhas.get(i).substring(0, 2).equals(PALAVRAS_CONHECIDAS[7])
-                    && ("(".equals(linhas.get(i).substring(3)) || " ".equals(linhas.get(i).substring(3)))) {
+                    }
+            } else if (linhas.get(i).contains(PALAVRAS_CONHECIDAS[7])){
+                    if ("(".equals(linhas.get(i).substring(3)) || " ".equals(linhas.get(i).substring(3))) {
                 aux = i + 1;
                 k = 0;
 
@@ -76,7 +82,7 @@ public class AnalisaComandos {
                 } while (!linhas.get(i).equals(PALAVRAS_CONHECIDAS[10]));
 
                 comandos.add(new ComandoFor(vetorComandos));
-//            // return new ComandoFor(vetorComandos);
+                    }
             } else if (linhas.get(i).contains(":=")) {
                 comandos.add(new ComandoAtribuicao(linhas.get(i)));
             } else if (linhas.get(i).equals(PALAVRAS_CONHECIDAS[14])) {
