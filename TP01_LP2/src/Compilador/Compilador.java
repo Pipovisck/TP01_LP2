@@ -37,7 +37,6 @@ public class Compilador {
     public void rodarPrograma() throws ExcecaoArquivoVazio {
         ArrayList palavras = leitorArquivo.retornaLista();
 
-        analisadorPrograma = new AnalisaPrograma(palavras);
         ArrayList lista = analisadorPrograma.separaComandos();
         AnalisaComandos analisa = new AnalisaComandos();
         ArrayList<Comando> comandos;
