@@ -13,7 +13,7 @@ public class AnalisaPrograma {
     private ArrayList<String> listaComandos;
     
     public AnalisaPrograma(ArrayList<Character> listaCaracteres){
-        this.listaCaracteres = listaCaracteres;
+        this.listaCaracteres = new ArrayList<>(listaCaracteres);
         listaComandos = new ArrayList<>();
     }
     
@@ -337,10 +337,25 @@ public class AnalisaPrograma {
                             
                         for(i = i; i<listaCaracteres.size(); i++){
                             if(listaCaracteres.get(i) == '\r'){
+                                char caracterAnterior = listaCaracteres.get(i-1);
+                                if(listaCaracteres.get(i-1)==' '){
+                                    for(int j=i-2; j>=0; j++){
+                                        if(listaCaracteres.get(j) != ' '){
+                                            caracterAnterior = listaCaracteres.get(j);
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(listaCaracteres.get(i+2)=='\r'){
+                                    i+=2;
+                                }
                                 if(listaCaracteres.get(i-1) == '+' || listaCaracteres.get(i-1) == '-' || listaCaracteres.get(i-1) == '*' || listaCaracteres.get(i-1) == '/'){
-                                    if(!(listaCaracteres.get(i+2) == '+' || listaCaracteres.get(i+2) == '-' || listaCaracteres.get(i+2) == '*' || listaCaracteres.get(i+2) == '/')){
+                                    if((listaCaracteres.get(i+2) == '+' || listaCaracteres.get(i+2) == '-' || listaCaracteres.get(i+2) == '*' || listaCaracteres.get(i+2) == '/')){
                                         break;
                                     }
+                                }
+                                else if(caracterAnterior=='"'){
+                                    break;
                                 }
                                 else if(listaCaracteres.get(i-1) >= 'A' && listaCaracteres.get(i-1) <= 'Z' || listaCaracteres.get(i-1) >= 'a' && listaCaracteres.get(i-1) <= 'z' || listaCaracteres.get(i-1) >= '0' && listaCaracteres.get(i-1) <= '9'){
                                     if(listaCaracteres.get(i+2) >= 'A' && listaCaracteres.get(i+2) <= 'Z' || listaCaracteres.get(i+2) >= 'a' && listaCaracteres.get(i+2) <= 'z' || listaCaracteres.get(i+2) >= '0' && listaCaracteres.get(i+2) <= '9'){
