@@ -52,12 +52,16 @@ public class AnalisaPrograma {
                         else if(listaCaracteres.get(i+7) == '('){
                             ehComando=true;
                         }
+                        if(ehComando==true){
+                            i=adicionaPrintln(i);
+                        }
                     }
                     else if(listaCaracteres.get(i+5) == ' '){
                         for(int j = i+5; j<listaCaracteres.size(); j++){
                             if(listaCaracteres.get(j) != ' '){
                                 if(listaCaracteres.get(j)=='('){
                                     ehComando=true;
+                                    i=adicionaPrint(i);
                                 }
                                 break;
                             }
@@ -65,9 +69,7 @@ public class AnalisaPrograma {
                     }
                     else if(listaCaracteres.get(i+5) == '('){
                             ehComando=true;
-                    }
-                    if(ehComando==true){
-                        i=adicionaPrint(i);
+                            i=adicionaPrint(i);
                     }
                 }
                 else if(listaCaracteres.get(i) == 'r' && listaCaracteres.get(i+1) == 'e' && listaCaracteres.get(i+2) == 'a' && listaCaracteres.get(i+3) == 'd' && listaCaracteres.get(i+4) == 'i' && listaCaracteres.get(i+5) == 'n' && listaCaracteres.get(i+6) == 't'){
@@ -108,7 +110,7 @@ public class AnalisaPrograma {
                         i=adicionaIf(i);
                     }
                 }
-                else if(listaCaracteres.get(i+3) == 'w' && listaCaracteres.get(i+4) == 'h' && listaCaracteres.get(i+5) == 'i' && listaCaracteres.get(i+6) == 'l' && listaCaracteres.get(i+5) == 'e'){
+                else if(listaCaracteres.get(i) == 'w' && listaCaracteres.get(i+1) == 'h' && listaCaracteres.get(i+2) == 'i' && listaCaracteres.get(i+3) == 'l' && listaCaracteres.get(i+4) == 'e'){
                     if(listaCaracteres.get(i+6) == ' '){
                         for(int j = i+7; j<listaCaracteres.size(); j++){
                             if(listaCaracteres.get(j) != ' '){
@@ -162,6 +164,29 @@ public class AnalisaPrograma {
     }
     
     private int adicionaPrint(int i){
+        while(listaCaracteres.get(i) != '('){
+            buffer += (String.valueOf(listaCaracteres.get(i)));
+            i++;
+        }
+        buffer += (String.valueOf(listaCaracteres.get(i)));
+        i++;
+        for(int parenteses = 1; parenteses > 0 && i<listaCaracteres.size(); i++){
+            buffer += (String.valueOf(listaCaracteres.get(i)));
+
+            if(listaCaracteres.get(i) == '('){
+                parenteses++;
+            }
+            else if(listaCaracteres.get(i) == ')'){
+                parenteses--;
+            }
+        }
+        listaComandos.add(buffer);
+        buffer = "";
+
+        return i;
+    }
+    
+    private int adicionaPrintln(int i){
         while(listaCaracteres.get(i) != '('){
             buffer += (String.valueOf(listaCaracteres.get(i)));
             i++;
