@@ -16,26 +16,25 @@ import java.util.List;
  */
 public class ComandoIf extends Comando {
 
-    private ArrayList<String> vetorComandos;
+    private final ArrayList<String> vetorComandos;
     private String condicional;
     private ReconhecimentoExpressaoLogica expressao;
-    private AnalisaComandos analisaComandos;
+    private final AnalisaComandos analisaComandos;
     private ArrayList<Comando> comandos;
-    private ArrayList<String> listaElse;
-    private ArrayList<String> listaIf;
+    private final ArrayList<String> listaElse;
+    private final ArrayList<String> listaIf;
 
     public ComandoIf(ArrayList<String> vetorComandos) {
         this.vetorComandos = vetorComandos;
         listaIf = new ArrayList<>();
         listaElse = new ArrayList<>();
         analisaComandos = new AnalisaComandos();
-        
-        
+
     }
 
     @Override
     public Memoria executar(Memoria memoria) {
-        
+
         expressao = new ReconhecimentoExpressaoLogica();
 //        comandos = analisaComandos.comparaPalavras(vetorComandos);
         Integer index = null;
@@ -49,20 +48,18 @@ public class ComandoIf extends Comando {
         }
 
         if (index != null) {
-            List<String> aux = vetorComandos.subList(indexInicioIf, vetorComandos.size() - 2);
+            List<String> aux = vetorComandos.subList(index + 1, vetorComandos.size() - 1);
             aux.forEach((palavra) -> {
                 listaElse.add(palavra);
             });
         } else {
-            index = vetorComandos.size() - 1;
+            index = vetorComandos.size() - 2;
         }
 
         List<String> aux = vetorComandos.subList(indexInicioIf, index);
         aux.forEach((palavra) -> {
             listaIf.add(palavra);
         });
-
-        
 
         if (expressao.calcularExpressao(condicional, memoria)) {
             comandos = analisaComandos.comparaPalavras(listaIf);
@@ -76,7 +73,7 @@ public class ComandoIf extends Comando {
             });
         }
 
-        return this.memoria;
+        return memoria;
     }
 
     @Override

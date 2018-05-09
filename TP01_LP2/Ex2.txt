@@ -6,11 +6,12 @@ readint(a)
 readint(b)
 readint(c)
 readint(d)
-media :=4
+media :=6
 if (media >= 6) then
   print("Aprovado")
 else
   print("Reprovado")
+print("Consegui")
 endif
   print("Media: " + media)
 end
