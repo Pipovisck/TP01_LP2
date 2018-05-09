@@ -107,7 +107,7 @@ public class ComandoWhile extends Comando {
             }
         }
         
-        for (int i = vetor.length-1; i >= 0; i--) {
+        for (int i = vetor.length - 1; i >= 0; i--) {
             if (vetor[i] == ')') {
                 fim = i;
                 this.fimExpressao = i;
@@ -128,8 +128,8 @@ public class ComandoWhile extends Comando {
         
         for (int i = 1; i < this.vetorLinhas.length - 1; i++) {
             comand.add(vetorLinhas[i]);
-        }
+}
         
         return analisa.comparaPalavras(comand);
-    }
+}
 }

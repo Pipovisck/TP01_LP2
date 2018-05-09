@@ -46,7 +46,7 @@ public class ComandoFor extends Comando{
         partesAtribuicao = comandoAtribuicao.split(":=");
         
         nomeVar = partesAtribuicao[0];
-        valorVar = exp.calcularExpressao(partesAtribuicao[1]);
+        valorVar = exp.calcularExpressao(partesAtribuicao[1], memoria);
         
         atribui = new ComandoAtribuicao(comandoAtribuicao);
         atribui.executar(this.memoria);
