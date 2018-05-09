@@ -109,7 +109,7 @@ public class ReconhecimentoExpressaoLogica<E> {
         while (!operadores.isEmpty()) {
             this.resolveExpressaoAnteriorFinal(memoria);
         }
-        return resultados.get(0);
+        return resultados.get(resultados.size()-1);
     }
 
     public void desempilhaParenteses(Memoria memoria) {
