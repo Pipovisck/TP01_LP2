@@ -1,6 +1,6 @@
 package Comandos;
 
-import Memória.Memoria;
+import Memoria.Memoria;
 
 public class ComandoEnd extends Comando{
 

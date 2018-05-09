@@ -33,6 +33,10 @@ public class CalculosLogicos<E> {
                 return this.maior(operando1, operando2, memoria);
             case "<>":
                 return !this.igual(operando1, operando2, memoria);
+            case ">=":
+                return this.maiorIgual(operando1, operando2, memoria);
+            case "<=":
+                return this.menorIgual(operando1, operando2, memoria);
             default:
                 return this.igual(operando1, operando2, memoria);
         }
@@ -69,6 +73,28 @@ public class CalculosLogicos<E> {
             operando2 = (E) memoria.getVariavel(operando2.toString());
         }
         return Float.parseFloat(operando1.toString()) < Float.parseFloat(operando2.toString());
+    }
+    
+    public boolean maiorIgual(E operando1, E operando2, Memoria memoria) {
+        if (memoria.getVariavel(operando1.toString()) != null) {
+            operando1 = (E) memoria.getVariavel(operando1.toString());
+        }
+
+        if (memoria.getVariavel(operando2.toString()) != null) {
+            operando2 = (E) memoria.getVariavel(operando2.toString());
+        }
+        return (operando1.toString().equals(operando2.toString()) || Float.parseFloat(operando1.toString()) > Float.parseFloat(operando2.toString()));
+    }
+    
+    public boolean menorIgual(E operando1, E operando2, Memoria memoria) {
+        if (memoria.getVariavel(operando1.toString()) != null) {
+            operando1 = (E) memoria.getVariavel(operando1.toString());
+        }
+
+        if (memoria.getVariavel(operando2.toString()) != null) {
+            operando2 = (E) memoria.getVariavel(operando2.toString());
+        }
+        return (operando1.toString().equals(operando2.toString()) || Float.parseFloat(operando1.toString()) < Float.parseFloat(operando2.toString()));
     }
 
     public boolean Ou(boolean operacao1, boolean operacao2, Memoria memoria) {

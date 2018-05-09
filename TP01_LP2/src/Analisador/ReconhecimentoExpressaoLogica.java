@@ -48,12 +48,20 @@ public class ReconhecimentoExpressaoLogica<E> {
                     this.desempilhaParenteses(memoria);
                     break;
                 case "=":
-                    operadores.add(caracter);
+                    if (ultimoCaracter == UltimoCaracter.operador && (operadores.get(operadores.size() - 1).equals("<") || operadores.get(operadores.size() - 1).equals(">"))) {
+                        operadores.set(operadores.size() - 1, operadores.get(operadores.size() - 1) + caracter);
+                    }
+                    else{
+                        operadores.add(caracter);
+                    }
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case ">":
                     if (ultimoCaracter == UltimoCaracter.operador && operadores.get(operadores.size() - 1).equals("<")) {
                         operadores.set(operadores.size() - 1, operadores.get(operadores.size() - 1) + caracter);
+                    }
+                    else{
+                        operadores.add(caracter);
                     }
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
