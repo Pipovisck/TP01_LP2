@@ -19,8 +19,9 @@ public class ComandoReadInt extends Comando<Integer>{
         return memoria;
     }
 
+    @Override
     public boolean verificarSintaxe() {
-        if(memoria.getVariavel(nomeVar) == null)
+        if(null == memoria.getVariavel(nomeVar))
             return false;
         return true;
     }

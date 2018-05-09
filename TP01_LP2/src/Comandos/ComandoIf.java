@@ -29,20 +29,18 @@ public class ComandoIf extends Comando {
         listaIf = new ArrayList<>();
         listaElse = new ArrayList<>();
         analisaComandos = new AnalisaComandos();
-        comandos = analisaComandos.comparaPalavras(vetorComandos);
+        
+        
     }
 
     @Override
     public Memoria executar(Memoria memoria) {
+        
+        expressao = new ReconhecimentoExpressaoLogica();
+//        comandos = analisaComandos.comparaPalavras(vetorComandos);
         Integer index = null;
-        Integer indexInicioIf = null;
-
-        for (String linha : vetorComandos) {
-            if (linha.equals("then")) {
-                indexInicioIf = vetorComandos.indexOf(linha) + 1;
-                break;
-            }
-        }
+        Integer indexInicioIf = 1;
+        condicional = vetorComandos.get(0).substring(4, (vetorComandos.get(0).length() - 5));
         for (String linha : vetorComandos) {
             if (linha.equals("else")) {
                 index = vetorComandos.indexOf(linha);
@@ -64,7 +62,7 @@ public class ComandoIf extends Comando {
             listaIf.add(palavra);
         });
 
-        condicional = vetorComandos.get(0).substring(3, (vetorComandos.get(0).length() - 4));
+        
 
         if (expressao.calcularExpressao(condicional, memoria)) {
             comandos = analisaComandos.comparaPalavras(listaIf);

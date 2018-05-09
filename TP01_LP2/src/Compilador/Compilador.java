@@ -12,7 +12,6 @@ import Comandos.Comando;
 import Excecoes.ExcecaoArquivoVazio;
 import Memoria.Memoria;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -20,8 +19,8 @@ import java.util.List;
  */
 public class Compilador {
 
-    private AnalisaPrograma analisadorPrograma;
-    private LeituraArquivo leitorArquivo;
+    private final AnalisaPrograma analisadorPrograma;
+    private final LeituraArquivo leitorArquivo;
     private ArrayList<Comando> comandos;
     private Memoria memoria;
 
@@ -45,11 +44,13 @@ public class Compilador {
 //            comandos.add(analisadorComandos.comparaPalavras(palavra));
 //        });
 //        
-        comandos.forEach((comando) -> {
-            if (!comando.verificarSintaxe()) {
-                System.out.println("Sintaxe errada" + comando.toString());
-            }
-        });
+
+        
+//        comandos.forEach((comando) -> {
+//            if (!comando.verificarSintaxe()) {
+//                System.out.println("Sintaxe errada" + comando.toString());
+//            }
+//        });
         comandos.forEach((comando) -> {
             memoria = comando.executar(memoria);
         });

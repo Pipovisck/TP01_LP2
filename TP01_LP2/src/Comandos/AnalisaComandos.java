@@ -15,9 +15,9 @@ import java.util.Arrays;
  */
 public class AnalisaComandos {
 
-    ArrayList<Comando> comandos;
-    ArrayList<String> listaComandos;
-    ArrayList<String> linhas;
+    private ArrayList<Comando> comandos;
+    private ArrayList<String> listaComandos;
+    private ArrayList<String> linhas;
 
     public AnalisaComandos() {
         this.comandos = new ArrayList<>();
@@ -27,15 +27,15 @@ public class AnalisaComandos {
     public ArrayList<Comando> comparaPalavras(ArrayList<String> linhas) {
         this.linhas = linhas;
 
-        for (int i = 0; i < this.linhas.size(); i++) {
+        for (int i= 0; i < this.linhas.size(); i++) {
             if (this.linhas.get(i).equals(PALAVRAS_CONHECIDAS[14])) {
 //                comandos.add(this.isEnd(i));
-            } else if (this.linhas.get(i).contains(":=")) {
-                comandos.add(this.isAtribuicao(i));
             } else if (this.linhas.get(i).substring(0, 3).contains(PALAVRAS_CONHECIDAS[0])) {
                 comandos.add(this.isIf(i));
             } else if (this.linhas.get(i).substring(0, 4).contains(PALAVRAS_CONHECIDAS[7])) {
                 comandos.add(this.isFor(i));
+            } else if (this.linhas.get(i).contains(":=")) {
+                comandos.add(this.isAtribuicao(i));
             } else if (this.linhas.get(i).substring(0, 5).contains(PALAVRAS_CONHECIDAS[11])) {
                 comandos.add(this.isPrint(i));
             } else if (this.linhas.get(i).substring(0, 6).contains(PALAVRAS_CONHECIDAS[4])) {
@@ -48,45 +48,46 @@ public class AnalisaComandos {
     }
 
     public Comando isIf(int indexLinha) {
-        int aux = indexLinha + 1;
-        int k = 0;
+        listaComandos.clear();
+        listaComandos.add(linhas.get(indexLinha));
+        while (!linhas.get(indexLinha + 1).equals(PALAVRAS_CONHECIDAS[3])) {
+            listaComandos.add(linhas.remove(indexLinha + 1));
+        }
+        listaComandos.add(linhas.remove(indexLinha + 1));
 
-        do {
-            listaComandos.add(linhas.remove(aux));
-            aux++;
-            k++;
-        } while (!linhas.get(indexLinha).equals(PALAVRAS_CONHECIDAS[3]));
-
-        ArrayList<String> auxIf;
-        auxIf = new ArrayList<>();
-        auxIf.addAll(listaComandos);
-
-        return new ComandoIf(auxIf);
+        ArrayList auxLista = new ArrayList();
+        auxLista.addAll(listaComandos);
+        return new ComandoIf(auxLista);
     }
 
     public Comando isFor(int indexLinha) {
-        int aux = indexLinha + 1;
-        int k = 0;
         listaComandos.clear();
-        do {
-            listaComandos.add(linhas.remove(aux));
-            aux++;
-            k++;
-        } while (!linhas.get(indexLinha).equals(PALAVRAS_CONHECIDAS[10]));
-        return new ComandoFor((String[]) listaComandos.toArray());
+        listaComandos.add(linhas.get(indexLinha));
+        while (!linhas.get(indexLinha + 1).equals(PALAVRAS_CONHECIDAS[10])) {
+            listaComandos.add(linhas.remove(indexLinha + 1));
+        }
+        listaComandos.add(linhas.remove(indexLinha + 1));
+
+        String[] auxLista = new String[listaComandos.size()];
+        for (int i = 0; i < listaComandos.size(); i++) {
+            auxLista[i] = listaComandos.get(i);
+        }
+        return new ComandoFor(auxLista);
     }
 
     public Comando isWhile(int indexLinha) {
-        int aux = indexLinha + 1;
-        int k = 0;
         listaComandos.clear();
-        do {
-            listaComandos.add(linhas.remove(aux));
-            aux++;
-            k++;
-        } while (!linhas.get(indexLinha).equals(PALAVRAS_CONHECIDAS[6]));
+        listaComandos.add(linhas.get(indexLinha));
+        while (!linhas.get(indexLinha + 1).equals(PALAVRAS_CONHECIDAS[6])) {
+            listaComandos.add(linhas.remove(indexLinha + 1));
+        }
+        listaComandos.add(linhas.remove(indexLinha + 1));
 
-        return new ComandoWhile((String[]) listaComandos.toArray());
+        String[] auxLista = new String[listaComandos.size()];
+        for (int i = 0; i < listaComandos.size(); i++) {
+            auxLista[i] = listaComandos.get(i);
+        }
+        return new ComandoWhile(auxLista);
     }
 
     public Comando isPrint(int indexLinha) {

@@ -13,10 +13,10 @@ import Memoria.Memoria;
  * @param <E>
  */
 public class CalculosLogicos<E> {
-    private final ReconhecimentoExpressaoLogica expressaoAritimetica;
+    private final ReconhecimentoExpressoesNumericas expressaoAritimetica;
     
     public CalculosLogicos(){
-        expressaoAritimetica = new ReconhecimentoExpressaoLogica();
+        expressaoAritimetica = new ReconhecimentoExpressoesNumericas();
     }
 
     public boolean calcularExpressaoLogicaBinaria(E operando1, E operando2, String operadorLogico, Memoria memoria) {

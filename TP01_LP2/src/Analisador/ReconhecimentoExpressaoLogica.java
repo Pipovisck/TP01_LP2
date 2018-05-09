@@ -82,7 +82,6 @@ public class ReconhecimentoExpressaoLogica<E> {
                 case " ":
                     break;
                 default:
-                    System.out.println(operandos.size());
                     if (ultimoCaracter == UltimoCaracter.operando && !operandos.isEmpty()) {
                         operandos.set(operandos.size() - 1, operandos.get(operandos.size() - 1) + caracter);
                     } else {
