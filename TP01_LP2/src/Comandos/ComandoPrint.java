@@ -161,10 +161,10 @@ public class ComandoPrint extends Comando<String>{
             
         }
         if(vetorComando[5]=='l')
-            System.out.println(impressao+"\n");
+            System.out.print(impressao+"\n");
         
         else
-            System.out.println(impressao);
+            System.out.print(impressao);
         
         return memoria;
     }

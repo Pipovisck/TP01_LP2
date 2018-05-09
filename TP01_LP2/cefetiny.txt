@@ -1,9 +1,5 @@
-var1 := "Teste1" 
-
 var2 := "Teste2" 
+for i:=0 to i<10 do
+println (var2)
+endfor
 
-
-print (var1)
-
-
-print (var2)

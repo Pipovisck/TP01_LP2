@@ -39,7 +39,6 @@ public class Compilador {
 
         ArrayList lista = analisadorPrograma.separaComandos();
         AnalisaComandos analisa = new AnalisaComandos();
-        ArrayList<Comando> comandos;
         comandos = analisa.comparaPalavras(lista);
 
 //        palavras.forEach((palavra) -> {
