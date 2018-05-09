@@ -11,9 +11,8 @@ import java.util.List;
  * @author Felipe
  */
 public class ComandoFor extends Comando{
-    private List<Comando> listaComandos;
-    private String[] vetorLinhas;
-    private Memoria memoria;
+    private final List<Comando> listaComandos;
+    private final String[] vetorLinhas;
     private boolean to;
     private boolean downto;
     private int fimAtribuicao;
@@ -194,7 +193,7 @@ public class ComandoFor extends Comando{
     private String pegaCondicaoParada(char[] linha){
         String condicaoParada = new String();
         
-        for (int i = this.fimAtribuicao; i < linha.length; i++) {
+        for (int i = this.fimAtribuicao - 1; i < linha.length; i++) {
             if (linha[i] == 'd' && linha[i + 1] == 'o' && (i + 1) == (linha.length - 1)) {
                 return condicaoParada;
             }
