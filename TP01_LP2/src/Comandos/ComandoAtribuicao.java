@@ -48,9 +48,10 @@ public class ComandoAtribuicao extends Comando {
 
     @Override
     public Memoria executar(Memoria memoria) {
-        this.conteudoVariavel = this.calcularConteudo(conteudoVariavel);
-
         this.memoria = memoria;
+        
+        this.conteudoVariavel = this.calcularConteudo(conteudoVariavel);
+        
         TipoDado tipoVariavel = this.descobreTipo(this.conteudoVariavel);
         switch (tipoVariavel) {
             case Integer:
@@ -123,7 +124,7 @@ public class ComandoAtribuicao extends Comando {
 
     public String calcularConteudo(String conteudo) {
         ReconhecimentoExpressoesNumericas reconhecedor = new ReconhecimentoExpressoesNumericas();
-        String conteudoNovo = reconhecedor.calcularExpressao(conteudo);
+        String conteudoNovo = reconhecedor.calcularExpressao(conteudo, this.memoria);
         return conteudoNovo;
     }
 }

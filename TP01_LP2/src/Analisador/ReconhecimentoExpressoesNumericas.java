@@ -1,6 +1,7 @@
 package Analisador;
 
 import Excecoes.ExcecaoEntradaDados;
+import Memoria.Memoria;
 import java.util.Stack;
 
 public class ReconhecimentoExpressoesNumericas {
@@ -42,7 +43,7 @@ public class ReconhecimentoExpressoesNumericas {
         }
     }
 
-    public String calcularExpressao(String expressao1) {
+    public String calcularExpressao(String expressao1, Memoria memoria) {
         String[] expressao = expressao1.split("");
         for (String caracterer : expressao) {
             switch (caracterer) {
@@ -52,7 +53,7 @@ public class ReconhecimentoExpressoesNumericas {
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case ")":
-                    this.desempilhaParenteses();
+                    this.desempilhaParenteses(memoria);
                     ultimoCaracter = UltimoCaracter.operador;
                     break;
                 case "*":
@@ -60,7 +61,7 @@ public class ReconhecimentoExpressoesNumericas {
                     if (!operadores.empty() && operadores.lastElement().equals("^")) {
                         float valor2 = Float.parseFloat(operandos.pop());
                         float valor1 = Float.parseFloat(operandos.pop());
-                        float resultado = calculadora.calcularBinario(operadores.pop(), valor1, valor2);
+                        float resultado = calculadora.calcularBinario(operadores.pop(), valor1, valor2, memoria);
                         operandos.add(Float.toString(resultado));
                     }
                     operadores.add(caracterer);
@@ -73,7 +74,7 @@ public class ReconhecimentoExpressoesNumericas {
                             || operadores.lastElement().equals(precedencia[2]))) {
                         float valor2 = Float.parseFloat(operandos.pop());
                         float valor1 = Float.parseFloat(operandos.pop());
-                        float resultado = calculadora.calcularBinario(operadores.pop(), valor1, valor2);
+                        float resultado = calculadora.calcularBinario(operadores.pop(), valor1, valor2, memoria);
                         operandos.add(Float.toString(resultado));
                     }
                     operadores.add(caracterer);
@@ -92,28 +93,28 @@ public class ReconhecimentoExpressoesNumericas {
                     }
             }
         }
-        this.desempilha();
+        this.desempilha(memoria);
         return operandos.pop();
     }
 
-    public void desempilhaParenteses() {
+    public void desempilhaParenteses(Memoria memoria) {
         do {
-            this.calculaUmAntecessor();
+            this.calculaUmAntecessor(memoria);
         } while (!operadores.lastElement().equals("("));
         operadores.pop();
     }
 
-    public void desempilha() {
+    public void desempilha(Memoria memoria) {
         while (!operadores.empty()) {
-            this.calculaUmAntecessor();
+            this.calculaUmAntecessor(memoria);
         }
     }
 
-    public void calculaUmAntecessor() {
+    public void calculaUmAntecessor(Memoria memoria) {
         String segundoNumero = operandos.pop();
         String primeiroNumero = operandos.pop();
         String operador = operadores.pop();
-        float resultado = calculadora.calcularBinario(operador, Float.parseFloat(primeiroNumero), Float.parseFloat(segundoNumero));
+        float resultado = calculadora.calcularBinario(operador, primeiroNumero, segundoNumero, memoria);
         operandos.add(Float.toString(resultado));
     }
 

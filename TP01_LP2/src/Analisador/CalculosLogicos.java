@@ -46,7 +46,6 @@ public class CalculosLogicos<E> {
         if (memoria.getVariavel(operando2.toString()) != null) {
             operando2 = (E) memoria.getVariavel(operando2.toString());
         }
-
         return operando1.toString().equals(operando2.toString());
     }
 

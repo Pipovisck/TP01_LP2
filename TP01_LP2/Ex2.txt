@@ -6,7 +6,7 @@ readint(a)
 readint(b)
 readint(c)
 readint(d)
-media :=6
+media :=(a+b+c+d)/4
 if (media >= 6) then
   print("Aprovado")
 else
