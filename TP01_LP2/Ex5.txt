@@ -1,5 +1,14 @@
-i:=5
-while (i = 5) do
-println("Hello World!")
-i:=4
-endwhile
+num:=0
+readint(num)
+numAnterior:=0
+numAtual:=1
+for i:=0 to i<num-1 do
+  numAtual:=numAnterior+numAtual
+  if(i<>0)then
+    numAnterior:=numAtual-numAnterior
+  else
+    numAnterior:=0
+  endif
+  println(numAtual)
+endfor
+end 

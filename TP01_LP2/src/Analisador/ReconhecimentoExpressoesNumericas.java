@@ -45,6 +45,7 @@ public class ReconhecimentoExpressoesNumericas {
 
     public String calcularExpressao(String expressao1, Memoria memoria) {
         String[] expressao = expressao1.split("");
+        ultimoCaracter = UltimoCaracter.operador;
         for (String caracterer : expressao) {
             switch (caracterer) {
                 case "(":
@@ -102,6 +103,7 @@ public class ReconhecimentoExpressoesNumericas {
             }
         }
         this.desempilha(memoria);
+        
         return operandos.pop();
     }
 

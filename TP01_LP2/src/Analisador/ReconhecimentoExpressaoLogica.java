@@ -21,6 +21,7 @@ public class ReconhecimentoExpressaoLogica<E> {
     private final List<String> operadores;
     private final List<Boolean> resultados;
     private final CalculosLogicos calculos;
+    private final ReconhecimentoExpressoesNumericas calcNum;
 
     private enum UltimoCaracter {
         operando, operador
@@ -34,6 +35,7 @@ public class ReconhecimentoExpressaoLogica<E> {
         resultados = new LinkedList();
         calculos = new CalculosLogicos();
         ultimoCaracter = UltimoCaracter.operando;
+        this.calcNum = new ReconhecimentoExpressoesNumericas();
     }
 
     public boolean calcularExpressao(String expressao, Memoria memoria) {
@@ -104,6 +106,8 @@ public class ReconhecimentoExpressaoLogica<E> {
     public void desenpilhaResolveAnterior(Memoria memoria) {
         String numero2 = operandos.pop();
         String numero1 = operandos.pop();
+        numero1 = calcNum.calcularExpressao(numero1, memoria);
+        numero2 = calcNum.calcularExpressao(numero2, memoria);
         resultados.add(calculos.calcularExpressaoLogicaBinaria(numero1, numero2, operadores.remove(operadores.size() - 1), memoria));
     }
 
