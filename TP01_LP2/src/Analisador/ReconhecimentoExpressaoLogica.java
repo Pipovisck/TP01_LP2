@@ -108,8 +108,8 @@ public class ReconhecimentoExpressaoLogica<E> {
     }
 
     public void resolveExpressaoAnteriorFinal(Memoria memoria) {
-        Boolean resultado = calculos.calcularExpressaoLogicaBinaria(resultados.remove(0), resultados.get(0), operadores.remove(0), memoria);
-        resultados.set(0, resultado);
+        Boolean resultado = calculos.calcularExpressaoLogicaBinaria(resultados.get(0), resultados.remove(0), operadores.remove(0), memoria);
+        resultados.add(resultado);
     }
 
     public boolean resolverExpressao(Memoria memoria) {

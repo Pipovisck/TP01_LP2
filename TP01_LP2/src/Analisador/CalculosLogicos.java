@@ -83,7 +83,7 @@ public class CalculosLogicos<E> {
         if (memoria.getVariavel(operando2.toString()) != null) {
             operando2 = (E) memoria.getVariavel(operando2.toString());
         }
-        return (operando1.toString().equals(operando2.toString()) || Float.parseFloat(operando1.toString()) > Float.parseFloat(operando2.toString()));
+        return (Float.parseFloat(operando1.toString()) == Float.parseFloat(operando2.toString()) || Float.parseFloat(operando1.toString()) > Float.parseFloat(operando2.toString()));
     }
     
     public boolean menorIgual(E operando1, E operando2, Memoria memoria) {
@@ -94,7 +94,7 @@ public class CalculosLogicos<E> {
         if (memoria.getVariavel(operando2.toString()) != null) {
             operando2 = (E) memoria.getVariavel(operando2.toString());
         }
-        return (operando1.toString().equals(operando2.toString()) || Float.parseFloat(operando1.toString()) < Float.parseFloat(operando2.toString()));
+        return (Float.parseFloat(operando1.toString()) == Float.parseFloat(operando2.toString()) || Float.parseFloat(operando1.toString()) < Float.parseFloat(operando2.toString()));
     }
 
     public boolean Ou(boolean operacao1, boolean operacao2, Memoria memoria) {

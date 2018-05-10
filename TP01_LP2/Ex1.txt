@@ -1,7 +1,7 @@
 a := 0
 b := 0
-readInt(a)
-readInt(b)
+readint(a)
+readint(b)
 
 if(a > b) then
   print(a - b)

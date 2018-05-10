@@ -39,7 +39,14 @@ public class ComandoIf extends Comando {
 //        comandos = analisaComandos.comparaPalavras(vetorComandos);
         Integer index = null;
         Integer indexInicioIf = 1;
-        condicional = vetorComandos.get(0).substring(4, (vetorComandos.get(0).length() - 5));
+        for(int i=0; i<vetorComandos.get(0).toCharArray().length; i++){
+            if(vetorComandos.get(0).toCharArray()[i]=='('){
+                indexInicioIf = i+1;
+                break;
+            }
+        }
+        condicional = vetorComandos.get(0).substring(indexInicioIf, (vetorComandos.get(0).length() - 5));
+        indexInicioIf=1;
         for (String linha : vetorComandos) {
             if (linha.equals("else")) {
                 index = vetorComandos.indexOf(linha);

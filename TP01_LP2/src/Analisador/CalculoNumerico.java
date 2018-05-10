@@ -57,18 +57,18 @@ public class CalculoNumerico<E> {
     public float subtrai(E operando1, E operando2, Memoria memoria) {
         float valor1 = 0;
         float valor2 = 0;
-        if (memoria.getVariavel(operando1.toString()) != null) {
-            valor1 = Float.parseFloat(memoria.getVariavel(operando1.toString()).toString());
+        if (memoria.getVariavel(operando1.toString().trim()) != null) {
+            valor1 = Float.parseFloat(memoria.getVariavel(operando1.toString().trim()).toString());
         }
         else{
             valor1 = Float.parseFloat(operando1.toString());
         }
 
-        if (memoria.getVariavel(operando2.toString()) != null) {
-            valor2 = Float.parseFloat(memoria.getVariavel(operando2.toString()).toString());
+        if (memoria.getVariavel(operando2.toString().trim()) != null) {
+            valor2 = Float.parseFloat(memoria.getVariavel(operando2.toString().trim()).toString());
         }
         else{
-            valor2 = Float.parseFloat(operando2.toString());
+            valor2 = Float.parseFloat(operando2.toString().trim());
         }
         return valor1 - valor2;
     }
@@ -76,18 +76,18 @@ public class CalculoNumerico<E> {
     public float multiplica(E operando1, E operando2, Memoria memoria) {
         float valor1 = 0;
         float valor2 = 0;
-        if (memoria.getVariavel(operando1.toString()) != null) {
-            valor1 = Float.parseFloat(memoria.getVariavel(operando1.toString()).toString());
+        if (memoria.getVariavel(operando1.toString().trim()) != null) {
+            valor1 = Float.parseFloat(memoria.getVariavel(operando1.toString().trim()).toString());
         }
         else{
-            valor1 = Float.parseFloat(operando1.toString());
+            valor1 = Float.parseFloat(operando1.toString().trim());
         }
 
-        if (memoria.getVariavel(operando2.toString()) != null) {
-            valor2 = Float.parseFloat(memoria.getVariavel(operando2.toString()).toString());
+        if (memoria.getVariavel(operando2.toString().trim()) != null) {
+            valor2 = Float.parseFloat(memoria.getVariavel(operando2.toString().trim()).toString());
         }
         else{
-            valor2 = Float.parseFloat(operando2.toString());
+            valor2 = Float.parseFloat(operando2.toString().trim());
         }
         return valor1 * valor2;
     }
@@ -95,18 +95,18 @@ public class CalculoNumerico<E> {
     public float divide(E numerador, E divisor, Memoria memoria) {
         float valor1 = 0;
         float valor2 = 0;
-        if (memoria.getVariavel(numerador.toString()) != null) {
-            valor1 = Float.parseFloat(memoria.getVariavel(numerador.toString()).toString());
+        if (memoria.getVariavel(numerador.toString().trim()) != null) {
+            valor1 = Float.parseFloat(memoria.getVariavel(numerador.toString().trim()).toString());
         }
         else{
-            valor1 = Float.parseFloat(numerador.toString());
+            valor1 = Float.parseFloat(numerador.toString().trim());
         }
 
-        if (memoria.getVariavel(divisor.toString()) != null) {
-            valor2 = Float.parseFloat(memoria.getVariavel(divisor.toString()).toString());
+        if (memoria.getVariavel(divisor.toString().trim()) != null) {
+            valor2 = Float.parseFloat(memoria.getVariavel(divisor.toString().trim()).toString());
         }
         else{
-            valor2 = Float.parseFloat(divisor.toString());
+            valor2 = Float.parseFloat(divisor.toString().trim());
         }
         return valor1 / valor2;
     }
@@ -115,17 +115,17 @@ public class CalculoNumerico<E> {
         float valor1 = 0;
         float valor2 = 0;
         if (memoria.getVariavel(operando.toString()) != null) {
-            valor1 = Float.parseFloat(memoria.getVariavel(operando.toString()).toString());
+            valor1 = Float.parseFloat(memoria.getVariavel(operando.toString().trim()).toString());
         }
         else{
-            valor1 = Float.parseFloat(operando.toString());
+            valor1 = Float.parseFloat(operando.toString().trim());
         }
 
         if (memoria.getVariavel(expoente.toString()) != null) {
-            valor2 = Float.parseFloat(memoria.getVariavel(expoente.toString()).toString());
+            valor2 = Float.parseFloat(memoria.getVariavel(expoente.toString().trim()).toString());
         }
         else{
-            valor2 = Float.parseFloat(expoente.toString());
+            valor2 = Float.parseFloat(expoente.toString().trim());
         }
         float resultado = valor1;
         for (int i = 0; i < valor2 - 1; i++) {
