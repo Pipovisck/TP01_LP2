@@ -1,0 +1,6 @@
+for a := 15 to a<200 do
+  b := a*a
+  if (b mod 2 = 0 and b mod 3 = 0) then
+    print(b)
+  endif
+endfor

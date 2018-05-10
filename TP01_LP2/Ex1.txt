@@ -1,0 +1,12 @@
+a := 0
+b := 0
+readInt(a)
+readInt(b)
+
+if(a > b) then
+  print(a - b)
+else
+  print(b - a)
+endif
+
+end
