@@ -29,7 +29,8 @@ public class AnalisaComandos {
 
         for (int i= 0; i < this.linhas.size(); i++) {
             if (this.linhas.get(i).equals(PALAVRAS_CONHECIDAS[14])) {
-//                comandos.add(this.isEnd(i));
+                comandos.add(this.isEnd(i));
+                break;
             } else if (this.linhas.get(i).substring(0, 3).contains(PALAVRAS_CONHECIDAS[0])) {
                 comandos.add(this.isIf(i));
             } else if (this.linhas.get(i).substring(0, 4).contains(PALAVRAS_CONHECIDAS[7])) {
@@ -108,9 +109,7 @@ public class AnalisaComandos {
         return new ComandoReadInt(linhas.get(indexLinha));
     }
 
-    public boolean isEnd(int indexLinha) {
-//        comandos.add(new ComandoEnd());
-//        i = linhas.size();
-        return true;
+    public Comando isEnd(int indexLinha) {
+       return new ComandoEnd();
     }
 }
