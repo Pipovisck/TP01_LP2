@@ -321,7 +321,16 @@ public class AnalisaPrograma {
     }
     
     private int adicionaEnd(int i){
-        if(listaCaracteres.get(i+3)=='i' && listaCaracteres.get(i+4) == 'f'){
+        if(i == listaCaracteres.size()-3 || listaCaracteres.get(i+3) == ' '){
+            for(int j=i; j < i+3; j++){
+                buffer += String.valueOf(listaCaracteres.get(j));
+            }
+            i+=2;
+            listaComandos.add(buffer);
+            buffer = "";
+            i=-1;
+        }
+        else if(listaCaracteres.get(i+3)=='i' && listaCaracteres.get(i+4) == 'f'){
             for(int j=i; j < i+5; j++){
                 buffer += String.valueOf(listaCaracteres.get(j));
             }
@@ -344,15 +353,6 @@ public class AnalisaPrograma {
             i+=7;
             listaComandos.add(buffer);
             buffer = "";
-        }
-        else if(i == listaCaracteres.size()-1 || listaCaracteres.get(i+3) == ' '){
-            for(int j=i; j < i+3; j++){
-                buffer += String.valueOf(listaCaracteres.get(j));
-            }
-            i+=2;
-            listaComandos.add(buffer);
-            buffer = "";
-            i=-1;
         }
         return i;
     }

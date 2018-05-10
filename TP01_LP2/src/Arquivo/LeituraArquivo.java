@@ -27,7 +27,7 @@ public class LeituraArquivo {
     public ArrayList retornaLista()throws ExcecaoArquivoVazio {
 
         try {
-            Scanner scanner = new Scanner(new FileInputStream("ex2.txt"));
+            Scanner scanner = new Scanner(new FileInputStream("ex5.txt"));
 
             scanner.useDelimiter("");
 

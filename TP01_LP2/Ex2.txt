@@ -11,6 +11,7 @@ if (media >= 6) then
   println("Aprovado")
 else
   println("Reprovado")
+print("Consegui")
 endif
   print("Media: " + media)
 end
