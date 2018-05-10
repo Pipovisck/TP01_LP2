@@ -71,7 +71,8 @@ public class ComandoFor extends Comando{
         }else if(this.to == true){
             while(condicaoParada == true){
                 listaComandos.forEach((comando) -> {
-                    comando.executar(this.memoria);
+
+        comando.executar(this.memoria);
                 });
                 
                 iterador++;

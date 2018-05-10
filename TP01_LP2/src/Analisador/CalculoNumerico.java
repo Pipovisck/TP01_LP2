@@ -133,4 +133,23 @@ public class CalculoNumerico<E> {
         }
         return resultado;
     }
+    
+    public float mod(E numerador, E modulo, Memoria memoria) {
+        float valor1 = 0;
+        float valor2 = 0;
+        if (memoria.getVariavel(numerador.toString().trim()) != null) {
+            valor1 = Float.parseFloat(memoria.getVariavel(numerador.toString().trim()).toString());
+        }
+        else{
+            valor1 = Float.parseFloat(numerador.toString().trim());
+        }
+
+        if (memoria.getVariavel(modulo.toString().trim()) != null) {
+            valor2 = Float.parseFloat(memoria.getVariavel(modulo.toString().trim()).toString());
+        }
+        else{
+            valor2 = Float.parseFloat(modulo.toString().trim());
+        }
+        return valor1 % valor2;
+    } 
 }
