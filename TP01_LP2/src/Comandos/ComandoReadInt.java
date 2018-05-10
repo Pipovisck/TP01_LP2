@@ -16,6 +16,7 @@ public class ComandoReadInt extends Comando<Integer>{
     
     @Override
     public Memoria executar(Memoria memoria){
+        nomeVar="";
         for(int i=0; i<linhaComando.length; i++){
             if(linhaComando[i]=='('){
                 i++;
@@ -26,7 +27,12 @@ public class ComandoReadInt extends Comando<Integer>{
                 break;
             }
         }
-        memoria.setVariavel(nomeVar, Integer.parseInt(scanner.next()));
+        if(memoria.getVariavel(nomeVar) == null){
+            memoria.add(nomeVar, scanner.nextInt());
+        }
+        else{
+            memoria.setVariavel(nomeVar, scanner.nextInt());
+        }
         return memoria;
     }
 
@@ -34,15 +40,10 @@ public class ComandoReadInt extends Comando<Integer>{
     public boolean verificarSintaxe() {
         for(int i=0; i<linhaComando.length; i++){
             if(linhaComando[i]=='('){
-                while(linhaComando[i]!=')'){
-                    nomeVar+=String.valueOf(linhaComando[i]);
-                    i++;
-                }
-                break;
+                if(linhaComando[i+1]>='0' && linhaComando[i+1]<='9')
+                    return false;
             }
         }
-        if(null == memoria.getVariavel(nomeVar))
-            return false;
         return true;
     }
 }

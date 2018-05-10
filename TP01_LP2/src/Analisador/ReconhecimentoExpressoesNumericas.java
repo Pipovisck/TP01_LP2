@@ -93,6 +93,14 @@ public class ReconhecimentoExpressoesNumericas {
                     }
             }
         }
+        if(operadores.empty()){
+            if(!(operandos.get(0).toCharArray()[0]>='0' && operandos.get(0).toCharArray()[0]<='9')){
+                return memoria.getVariavel(operandos.pop()).toString();
+            }
+            else{
+                return operandos.pop();
+            }
+        }
         this.desempilha(memoria);
         return operandos.pop();
     }

@@ -358,6 +358,7 @@ public class AnalisaPrograma {
     }
     
     private int adicionaAtribuicao(int i){
+        char caracterAnterior;
         for(i=i; i<listaCaracteres.size(); i++){
             if((listaCaracteres.get(i) >= 'A' && listaCaracteres.get(i) <= 'Z' || listaCaracteres.get(i) >= 'a' && listaCaracteres.get(i) <= 'z' || listaCaracteres.get(i) >= '0' && listaCaracteres.get(i) <= '9')){
                 buffer += String.valueOf(listaCaracteres.get(i));
@@ -376,7 +377,9 @@ public class AnalisaPrograma {
             i++;
             buffer += listaCaracteres.get(i);
             i++;
-
+            
+            caracterAnterior = listaCaracteres.get(i);
+            
             if(listaCaracteres.get(i) == ' '){
                 do{
                     i++;
@@ -385,7 +388,6 @@ public class AnalisaPrograma {
 
             for(i = i; i<listaCaracteres.size(); i++){
                 if(listaCaracteres.get(i) == '\r'){
-                    char caracterAnterior = listaCaracteres.get(i-1);
                     if(listaCaracteres.get(i-1)==' '){
                         for(int j=i-2; j>=0; j++){
                             if(listaCaracteres.get(j) != ' '){
@@ -397,24 +399,20 @@ public class AnalisaPrograma {
                     if(listaCaracteres.get(i+2)=='\r'){
                         i+=2;
                     }
-                    if(listaCaracteres.get(i-1) == '+' || listaCaracteres.get(i-1) == '-' || listaCaracteres.get(i-1) == '*' || listaCaracteres.get(i-1) == '/'){
+                    if(caracterAnterior == '+' || caracterAnterior == '-' || caracterAnterior == '*' || caracterAnterior == '/'){
                         if((listaCaracteres.get(i+2) == '+' || listaCaracteres.get(i+2) == '-' || listaCaracteres.get(i+2) == '*' || listaCaracteres.get(i+2) == '/')){
                             break;
                         }
                     }
-                    else if(caracterAnterior=='"'){
-                        break;
-                    }
-                    else if(listaCaracteres.get(i-1) >= 'A' && listaCaracteres.get(i-1) <= 'Z' || listaCaracteres.get(i-1) >= 'a' && listaCaracteres.get(i-1) <= 'z' || listaCaracteres.get(i-1) >= '0' && listaCaracteres.get(i-1) <= '9'){
+                    else if(caracterAnterior >= 'A' && caracterAnterior <= 'Z' || caracterAnterior >= 'a' && caracterAnterior <= 'z' || caracterAnterior >= '0' && caracterAnterior <= '9'){
                         if(listaCaracteres.get(i+2) >= 'A' && listaCaracteres.get(i+2) <= 'Z' || listaCaracteres.get(i+2) >= 'a' && listaCaracteres.get(i+2) <= 'z' || listaCaracteres.get(i+2) >= '0' && listaCaracteres.get(i+2) <= '9'){
                             break;
                         }
                     }
                     i+=2;
                 }
-                buffer += listaCaracteres.get(i);
                 if(listaCaracteres.get(i) == ' '){
-                    if(listaCaracteres.get(i-1) == '+' || listaCaracteres.get(i-1) == '-' || listaCaracteres.get(i-1) == '*' || listaCaracteres.get(i-1) == '/'){
+                    if(caracterAnterior == '+' || caracterAnterior == '-' || caracterAnterior == '*' || caracterAnterior == '/'){
                         do{
                             i++;
                         }while(listaCaracteres.get(i) == ' ');
@@ -429,6 +427,8 @@ public class AnalisaPrograma {
                         }
                     }
                 }
+                caracterAnterior = listaCaracteres.get(i);
+                buffer += listaCaracteres.get(i);
             }
             listaComandos.add(buffer);
             buffer = "";

@@ -63,7 +63,13 @@ public class AnalisaComandos {
     public Comando isFor(int indexLinha) {
         listaComandos.clear();
         listaComandos.add(linhas.get(indexLinha));
-        while (!linhas.get(indexLinha + 1).equals(PALAVRAS_CONHECIDAS[10])) {
+        int contaFor=1;
+        while (contaFor>0) {
+            if(linhas.get(indexLinha + 1).substring(0, 4).contains(PALAVRAS_CONHECIDAS[7])){
+                contaFor++;
+            }else if(linhas.get(indexLinha + 2).equals(PALAVRAS_CONHECIDAS[10])){
+                contaFor--;
+            }
             listaComandos.add(linhas.remove(indexLinha + 1));
         }
         listaComandos.add(linhas.remove(indexLinha + 1));

@@ -50,19 +50,19 @@ public class ComandoAtribuicao extends Comando {
     public Memoria executar(Memoria memoria) {
         this.memoria = memoria;
         
-        this.conteudoVariavel = this.calcularConteudo(conteudoVariavel);
+        String novoValor = this.calcularConteudo(conteudoVariavel);
         
-        TipoDado tipoVariavel = this.descobreTipo(this.conteudoVariavel);
+        TipoDado tipoVariavel = this.descobreTipo(novoValor);
         switch (tipoVariavel) {
             case Integer:
-                this.memoria.add(this.nomeVariavel, Integer.parseInt(this.conteudoVariavel));
+                this.memoria.add(this.nomeVariavel, Integer.parseInt(novoValor));
                 break;
             case Float:
-                this.memoria.add(this.nomeVariavel, Float.parseFloat(this.conteudoVariavel));
+                this.memoria.add(this.nomeVariavel, Float.parseFloat(novoValor));
                 break;
             default:
-                this.conteudoVariavel = this.conteudoVariavel.replace("\"", "");
-                this.memoria.add(this.nomeVariavel, this.conteudoVariavel);
+                novoValor = this.conteudoVariavel.replace("\"", "");
+                this.memoria.add(this.nomeVariavel, novoValor);
         }
         return this.memoria;
     }
